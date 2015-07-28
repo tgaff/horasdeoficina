@@ -1,0 +1,10 @@
+== README
+
+The Usual Suspects, a collection of Rails and commonly used Gems to use as a template for new apps.
+
+== renaming
+
+One can rename the app via `rake usual_suspects:rename_application['MyAppName']
+
+This makes the required rails changes.
+

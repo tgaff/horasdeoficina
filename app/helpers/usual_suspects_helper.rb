@@ -1,0 +1,2 @@
+module UsualSuspectsHelper
+end

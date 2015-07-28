@@ -1,0 +1,33 @@
+<h1>UsualSuspects#readme</h1>
+<p>
+  <% if user_signed_in? %>
+    <%= current_user.email %> is signed in.
+  <% else %>
+    click <%= link_to 'here', new_user_session_path %> to sign-in.
+  <% end %>
+</p>
+
+<h2>about</h2>
+<p>
+  This is a default page for the Usual Suspects, a Rails template app.
+
+  Currently this comes preconfigured with:
+</p>
+  <ul>
+    <li>Devise</li>
+    <li>RSpec</li>
+    <li>Capybara</li>
+    <li>FactoryGirl</li>
+    <li>shoulda-matchers</li>
+    <li>database cleaner</li>
+    <li>pry</li>
+  </ul>
+<p>
+Planned additions include:
+</p>
+<ul>
+  <li>bettererrors</li>
+  <li>foundation?</li>
+</ul>
+
+
