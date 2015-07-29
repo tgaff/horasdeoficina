@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.3.2/fullcalendar.min.css' />
+  <script src='//code.jquery.com/jquery-2.1.4.min.js'></script>
+  <script src='//momentjs.com/downloads/moment.min.js'></script>
+  <script src='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.3.2/fullcalendar.min.js' ></script>
+</head>
+<body>
+<div id='calendar'></div>
+
+<script>
+$(document).ready(function() {
+
+    // page is now ready, initialize the calendar...
+
+    $('#calendar').fullCalendar({
+      defaultView: 'agendaWeek',
+      selectable: true,
+      header: { // destroy all headers
+        center: '',
+        left: '',
+        right: ''
+        },
+        select: function(start, end) {
+          //var title = prompt('busy');
+          var title = 'BUSY';
+          var eventData;
+          if (title) {
+            eventData = {
+              title: title,
+              start: start,
+              end: end,
+              //rendering: 'background'
+            };
+            $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+          }
+          $('#calendar').fullCalendar('unselect');
+        },
+
+        editable: true
+      })
+
+});
+</script>
+</body>
+</html>
