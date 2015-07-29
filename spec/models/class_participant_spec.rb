@@ -7,6 +7,7 @@ RSpec.describe ClassParticipant, type: :model do
   it { should respond_to(:role) }
   it { should belong_to(:role) }
   it { should validate_presence_of(:role) }
+  it { should have_many(:weekly_time_blocks) }
 
   describe 'fg traits' do
     it 'can be a student' do
