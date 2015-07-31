@@ -1,0 +1,2 @@
+module WeeklyTimeBlocksHelper
+end

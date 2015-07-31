@@ -7,3 +7,8 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 Role.create(role_name: 'student')
 Role.create(role_name: 'educator')
+
+WeeklyTimeBlock.create(dotw: 'Sunday', from: '9:00', to: '11:00')
+WeeklyTimeBlock.create(dotw: 'Sunday', from: '12:00', to: '13:00')
+WeeklyTimeBlock.create(dotw: 'Tuesday', from: '12:00', to: '13:00')
+WeeklyTimeBlock.create(dotw: 'Wednesday', from: '22:00', to: '23:00')

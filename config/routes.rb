@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  get 'weekly_time_blocks' => 'weekly_time_blocks#index'
+  post 'weekly_time_blocks/create'
+  get 'weekly_time_blocks/:id' => 'weekly_time_blocks#show'
+  delete 'weekly_time_blocks/:id' => 'weekly_time_blocks#destroy'
+  put 'weekly_time_blocks/update'
+  patch 'weekly_time_blocks/update'
+
   get 'usual_suspects/readme'
 
   devise_for :users
