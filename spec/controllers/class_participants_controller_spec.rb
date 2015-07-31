@@ -15,7 +15,10 @@ RSpec.describe ClassParticipantsController, type: :controller do
       get :show, id: participant_id
       expect(assigns(:wtbs)).to eq WeeklyTimeBlock.where(class_participant_id: participant_id)
     end
-
+    it "uses the calendar layout" do
+      get :show, id: participant_id
+      expect(response).to render_with_layout('calendar_layout')
+    end
   end
 
   describe 'GET #last' do
