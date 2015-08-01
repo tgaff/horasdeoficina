@@ -17,7 +17,8 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'usual_suspects#readme'
+  #root 'usual_suspects#readme'
+  root 'class_participants#last'
 
   # devise will redirect to this path on sign-in:
   #
