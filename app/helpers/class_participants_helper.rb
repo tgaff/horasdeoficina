@@ -1,0 +1,2 @@
+module ClassParticipantsHelper
+end

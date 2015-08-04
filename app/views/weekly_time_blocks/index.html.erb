@@ -1,0 +1,19 @@
+<h1>WeeklyTimeBlocks#index</h1>
+
+<!-- this is just a debugging page -->
+<table>
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>dotw</th>
+      <th>from</th>
+      <th>to</th>
+    <tr>
+  </thead>
+  <tbody id='wtbs'>
+    <% @wtbs.each do |wtb| %>
+      <%= render 'row', wtb: wtb %>
+    <% end %>
+  </tbody>
+</table>
+

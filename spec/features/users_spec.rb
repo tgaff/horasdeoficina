@@ -23,22 +23,9 @@ RSpec.feature "User sign-in", :js do
     fill_in 'Password', with: user.password
     click_on 'Log in'
 
-    expect(page).to have_content 'Usual Suspects'
-    expect(page).to have_content user.email
-    expect(User.last.confirmed_at).to_not eq nil
-  end
-
-  scenario 'when the user is unconfirmed sign-in is prevented' do
-    user = FactoryGirl.create(:unconfirmed_user)
-    visit user_session_path
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
-    click_on 'Log in'
-
-    # there's not much to test here until we have a page to redirect to on sign-in
-    expect(page).to have_field('Password')
-    expect(page).to have_no_content 'Welcome aboard'
-    expect(User.last.confirmed_at).to eq nil
+    visit edit_user_registration_path
+    expect(page).to have_content 'Edit User' # not accessible when not signed in
+    expect(page).to have_css "input[value='#{user.email}']"
   end
 
 end
@@ -63,7 +50,21 @@ RSpec.feature "User sign-up", js: true do
     fill_in 'Password', with: '12345678'
     fill_in 'Password confirmation', with: '12345678'
     click_on 'Sign up'
-    expect(page).to have_content 'Usual Suspects'
+
     expect(User.last.email).to eq new_email
+
+    visit '/users/edit'
+    expect(page).to have_content 'Logout'
+    expect(page).to have_content 'You have signed up successfully'
+  end
+
+  pending "it redirects to an appropriate path on sign-in" do
+    visit new_user_registration_path
+    fill_in 'Email', with: new_email
+    fill_in 'Password', with: '12345678'
+    fill_in 'Password confirmation', with: '12345678'
+    click_on 'Sign up'
+
+    expect(page.current_url).to match /class_participants/
   end
 end

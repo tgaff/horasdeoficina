@@ -1,4 +1,15 @@
 Rails.application.routes.draw do
+  get 'class_participants/:id', to: 'class_participants#show', as: :class_participant
+  get 'class_participants' => 'class_participants#last'
+  get 'class_participants/last' => 'class_participants#last'
+
+  get 'weekly_time_blocks' => 'weekly_time_blocks#index'
+  post 'weekly_time_blocks/create'
+  get 'weekly_time_blocks/:id' => 'weekly_time_blocks#show'
+  delete 'weekly_time_blocks/:id' => 'weekly_time_blocks#destroy'
+  put 'weekly_time_blocks/update'
+  patch 'weekly_time_blocks/update'
+
   get 'usual_suspects/readme'
 
   devise_for :users
@@ -6,7 +17,8 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'usual_suspects#readme'
+  #root 'usual_suspects#readme'
+  root 'class_participants#last'
 
   # devise will redirect to this path on sign-in:
   #
