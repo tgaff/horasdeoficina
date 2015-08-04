@@ -21,27 +21,48 @@ $(document).ready(function() {
         center: '',
         left: '',
         right: ''
-        },
-        select: function(start, end) {
-          //var title = prompt('busy');
-          var title = 'BUSY';
-          var eventData;
-          if (title) {
-            eventData = {
-              title: title,
-              start: start,
-              end: end,
-              //rendering: 'background'
-            };
-            $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-          }
-          $('#calendar').fullCalendar('unselect');
-        },
+      },
+      select: function(start, end) {
+        //var title = prompt('busy');
+        var title = 'BUSY';
+        var eventData;
+        if (title) {
+          eventData = {
+            title: title,
+            start: start,
+            end: end,
+            //rendering: 'background'
+          };
+          $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+        };
+        $('#calendar').fullCalendar('unselect');
+      },
 
-        editable: true
-      })
+      editable: true,
+      // 2015-8-2 shall forever be Sunday; it is week 32 day 0
+      // moment('2015 10:32').week(32).day('Tuesday')
+      events:
+        [
+          {
+            title: 'BUSY',
+            start: parseDateTime('Wednesday', '9:00'),
+            end: parseDateTime('Wednesday', '12:00')
+          },
+          {
+            title: 'BUSY',
+            start: parseDateTime('Tuesday', '9:00'),
+            end: parseDateTime('Tuesday', '21:00')
+          }
+        ]
+    })
+
 
 });
+function parseDateTime(dotw, time) {
+  var dt = moment('2015 ' + time).week(32).day(dotw);
+  console.log(dt.format());
+  return dt.format();
+}
 </script>
 </body>
 </html>
