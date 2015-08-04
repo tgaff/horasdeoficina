@@ -1,0 +1,27 @@
+
+<div id='calendar'></div>
+<%= @wtbs %>
+
+<script>
+WTBS = [
+<% @wtbs.each do |wtb| %>
+    {
+      title: 'busy',
+      start: parseFromWTBTime('<%= wtb.dotw %>', '<%= wtb.from.strftime("%H:%M") %>'),
+      end: parseFromWTBTime('<%= wtb.dotw %>', '<%= wtb.to.strftime("%H:%M")%>')
+    },
+  <% end %>
+  ];
+
+
+  function parseFromWTBTime(dotw, time) {
+    var dt = moment('2015 ' + time).week(32).day(dotw);
+    console.log(dt.format());
+    return dt.format();
+  };
+
+//  setTimeout(function() {
+//$('#calendar').fullCalendar('addEventSource', wtbs);
+//$('#calendar').fullCalendar('refetchEvents');
+ // }, 1000);
+</script>
