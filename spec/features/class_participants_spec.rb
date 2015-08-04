@@ -14,7 +14,7 @@ RSpec.feature "Class Participants",
     FactoryGirl.create(:weekly_time_block, class_participant: cp)
   end
 
-  scenario 'the calendar is displayed' do
+  scenario 'the calendar is displayed in week view' do
     visit class_participants_path
     expect(page).to have_css('#calendar .fc-agendaWeek-view')
     expect(page.find('#calendar')).to have_css('.fc-day-header', count: 7)
