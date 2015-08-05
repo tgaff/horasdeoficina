@@ -7,8 +7,8 @@ WTBS = [
 <% @wtbs.each do |wtb| %>
     {
       title: 'busy',
-      start: parseFromWTBTime('<%= wtb.dotw %>', '<%= wtb.from.strftime("%H:%M") %>'),
-      end: parseFromWTBTime('<%= wtb.dotw %>', '<%= wtb.to.strftime("%H:%M")%>')
+      start: parseFromWTBTime('<%= wtb.from.iso8601 %>'),
+      end: parseFromWTBTime('<%= wtb.to.iso8601 %>')
     },
   <% end %>
   ];
