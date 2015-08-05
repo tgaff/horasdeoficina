@@ -19,7 +19,7 @@ RSpec.describe WeeklyTimeBlocksController, type: :controller do
   end
 
   describe "POST #create" do
-    let(:valid_attrs) { {to: '12:00', from: '9:00', dotw: 'Wednesday'} }
+    let(:valid_attrs) { {to: Time.new(2015,8,4,'12:00'), from: Time.new(2015,8,4,'9:00')} }
     it "returns http success" do
       request.accept = "application/json"
       post :create, wtb: valid_attrs
@@ -43,6 +43,7 @@ RSpec.describe WeeklyTimeBlocksController, type: :controller do
       expect(response).to have_http_status(:success)
     end
     it "sends valid wtb attributes" do
+      binding.pry
       get :show, id: wtb1.id, format: :json
       expect(JSON.parse(response.body)).to eq JSON.parse(wtb1.to_json)
     end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150728220836) do
+ActiveRecord::Schema.define(version: 20150804233227) do
 
   create_table "class_participants", force: :cascade do |t|
     t.integer  "role_id"
@@ -55,9 +55,8 @@ ActiveRecord::Schema.define(version: 20150728220836) do
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true
 
   create_table "weekly_time_blocks", force: :cascade do |t|
-    t.string   "dotw"
-    t.time     "from"
-    t.time     "to"
+    t.datetime "from"
+    t.datetime "to"
     t.boolean  "can"
     t.integer  "preferred"
     t.integer  "class_participant_id"
