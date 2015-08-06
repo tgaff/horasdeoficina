@@ -43,7 +43,6 @@ RSpec.describe WeeklyTimeBlocksController, type: :controller do
       expect(response).to have_http_status(:success)
     end
     it "sends valid wtb attributes" do
-      binding.pry
       get :show, id: wtb1.id, format: :json
       expect(JSON.parse(response.body)).to eq JSON.parse(wtb1.to_json)
     end
