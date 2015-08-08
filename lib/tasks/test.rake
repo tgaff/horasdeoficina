@@ -6,7 +6,6 @@ namespace :testing do
   desc 'rename the application from UsualSupects to a specified camel-cased new name'
   task :test, :new_name, :directory do |t, args|
     new_name = args[:new_name]
-    binding.pry
     puts 'done'
 end
 end
