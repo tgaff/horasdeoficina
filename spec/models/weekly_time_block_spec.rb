@@ -5,26 +5,59 @@ RSpec.describe WeeklyTimeBlock, type: :model do
 
   it { should be_valid }
   it { should belong_to :class_participant }
-  it { should validate_presence_of :dotw }
 
   it { should validate_presence_of :from }
   it { should validate_presence_of :to }
 
-  let(:days_of_the_week) { [ 'Sunday', 'Monday',
-                             'Tuesday', 'Wednesday',
-                              'Thursday', 'Friday',
-                              'Saturday'
-  ] }
-
-  it 'allows valid days of the week' do
-    days_of_the_week.each do |d|
-      expect(FactoryGirl.build(:weekly_time_block, dotw: d) ).to be_valid
+  describe '#morph_dates to week of 2015-08-02' do
+    time_chunks = [
+      { from: DateTime.new(1999,8,3, 11,00), to: DateTime.new(1999,8,3, 12,00) },
+      { from: DateTime.new(2016,8,3, 11,00), to: DateTime.new(2016,8,3, 12,00) },
+      { from: DateTime.new(2015,8,3, 11,00), to: DateTime.new(2015,8,3, 12,00) },
+      { from: DateTime.new(2015,8,3, 11,00), to: DateTime.new(2015,8,5, 12,00) },
+      { from: DateTime.new(2015,8,8, 11,00), to: DateTime.new(2015,8,8, 12,00) },
+      { from: DateTime.new(2015,8,8, 11,00), to: DateTime.new(2015,8,9, 0,01),
+        morphed_to: DateTime.new(2015,8,8,23,59)}, # special case crosses week boundary on :to
+      { from: DateTime.new(2015,8,1, 23,58), to: DateTime.new(2015,8,2, 1,00),
+        morphed_to: DateTime.new(2015,8,8,23,59)},
+    ]
+    time_chunks.each do |range|
+      describe "for range #{range[:from]}-#{range[:to]}" do
+        subject(:wtb) { FactoryGirl.create(:weekly_time_block, from: range[:from], to: range[:to]) }
+        it "morphs from value" do
+          expect(wtb.from.year).to eq 2015
+          expect(wtb.from.month).to eq 8
+          expect(wtb.from.day).to be >= 2
+          expect(wtb.from.day).to be <= 8
+        end
+        it "morphs to value" do
+          expect(wtb.to.year).to eq 2015
+          expect(wtb.to.month).to eq 8
+          expect(wtb.to.day).to be >= 2
+          expect(wtb.to.day).to be <= 8
+        end
+        it "from keeps the day of the week" do
+          expect(wtb.from.strftime('%A')).to eq range[:from].strftime('%A')
+        end
+        it "to keeps the day of the week (when possible)" do
+          if range[:morphed_to]
+            expect(wtb.to.strftime('%A')).to eq 'Saturday'
+          else
+            expect(wtb.to.strftime('%A')).to eq range[:to].strftime('%A')
+          end
+        end
+        it "maintains the distance between from and to (when possible)" do
+          if range[:morphed_to]
+            expect(wtb.to).to eq range[:morphed_to]
+          else
+            # note the wtb.to.time conversion to a Time or DateTime here
+            # http://api.rubyonrails.org/classes/ActiveSupport/TimeWithZone.html#method-i-time
+            expect(wtb.to.time - wtb.from.time).to eq range[:to]-range[:from]
+          end
+        end
+      end
     end
   end
-  it 'doesnt permit days of the week from other planets' do
-    expect(FactoryGirl.build(:weekly_time_block, dotw: 'Towelday') ).to be_invalid
-  end
-
   describe 'participant with multiple time blocks' do
     let(:participant) { FactoryGirl.create(:class_participant) }
     before do
@@ -54,7 +87,7 @@ RSpec.describe WeeklyTimeBlock, type: :model do
 
     it 'can create a time-block that overlaps others if not on the same day' do
       new_tb = FactoryGirl.build(:weekly_time_block, class_participant: participant,
-                        from: '9:00', to: '18:00', dotw: 'Tuesday')
+                                 from: DateTime.new(2001, 1, 1, 9), to: DateTime.new(2015, 8, 3, 18))
       expect(new_tb).to be_valid
     end
 

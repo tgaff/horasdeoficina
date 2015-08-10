@@ -5,11 +5,20 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+#always builds times from August 2nd
+def time(day, time)
+  hour = time.split(':').first.to_i
+  min = time.split(':').last.to_i
+  DateTime.new(2015,8,day,hour,min).in_time_zone
+end
+
 Role.create(role_name: 'student')
 Role.create(role_name: 'educator')
 cp = ClassParticipant.create(role_id: Role.first.id)
 
-WeeklyTimeBlock.create(dotw: 'Sunday', from: '9:00', to: '11:00', class_participant_id: cp.id)
-WeeklyTimeBlock.create(dotw: 'Sunday', from: '12:00', to: '13:00', class_participant_id: cp.id)
-WeeklyTimeBlock.create(dotw: 'Tuesday', from: '12:00', to: '13:00')
-WeeklyTimeBlock.create(dotw: 'Wednesday', from: '22:00', to: '23:00', class_participant_id: cp.id)
+
+
+WeeklyTimeBlock.create(from: time(3,'9:00'), to: time(3,'11:00'), class_participant_id: cp.id)
+WeeklyTimeBlock.create(from: time(4,'12:00'), to: time(4,'13:00'), class_participant_id: cp.id)
+WeeklyTimeBlock.create(from: time(2,'12:00'), to: time(2,'13:00'))
+WeeklyTimeBlock.create(from: time(4,'22:00'), to: time(5,'23:00'), class_participant_id: cp.id)

@@ -19,7 +19,7 @@ RSpec.describe WeeklyTimeBlocksController, type: :controller do
   end
 
   describe "POST #create" do
-    let(:valid_attrs) { {to: '12:00', from: '9:00', dotw: 'Wednesday'} }
+    let(:valid_attrs) { {to: Time.new(2015,8,4,'12:00'), from: Time.new(2015,8,4,'9:00')} }
     it "returns http success" do
       request.accept = "application/json"
       post :create, wtb: valid_attrs
@@ -34,6 +34,13 @@ RSpec.describe WeeklyTimeBlocksController, type: :controller do
       expect(doub).to receive(:to_json).and_return({})
       request.accept = 'application/json'
       post :create, wtb: valid_attrs
+    end
+
+
+    it 'has the right time in the new wtb' do
+      request.accept = "application/json"
+      post :create, wtb: valid_attrs
+      expect(WeeklyTimeBlock.last.from.utc.iso8601).to match Time.new(2015,8,4,9,0).utc.iso8601
     end
   end
 
