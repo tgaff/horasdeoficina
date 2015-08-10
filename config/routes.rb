@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'class_participants/last' => 'class_participants#last'
 
   get 'weekly_time_blocks' => 'weekly_time_blocks#index'
-  post 'weekly_time_blocks/create'
+  post 'weekly_time_blocks' => 'weekly_time_blocks#create'
   get 'weekly_time_blocks/:id' => 'weekly_time_blocks#show'
   delete 'weekly_time_blocks/:id' => 'weekly_time_blocks#destroy'
   put 'weekly_time_blocks/update'

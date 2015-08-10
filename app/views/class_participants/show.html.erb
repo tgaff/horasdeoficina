@@ -1,11 +1,18 @@
 
 <div id='calendar'></div>
 
+<%= form_tag("/weekly_time_blocks", method: "create") do |f| %>
+  <%= hidden_field_tag :wtbs, @wtbs %>
+  <input type="hidden" name="wtbs2" value="" />
+  <%= submit_tag 'Save calendar', :onclick => "return calendarSubmit();" %>
+<% end %>
+
+
 <script>
 WTBS = [
 <% @wtbs.each do |wtb| %>
     {
-      title: 'busy',         
+      title: 'busy',
       start: parseFromWTBTime('<%= wtb.from.strftime("%Y-%m-%d %H:%M") %>'),
       end: parseFromWTBTime('<%= wtb.to.strftime("%Y-%m-%d %H:%M") %>')
     },

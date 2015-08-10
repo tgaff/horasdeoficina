@@ -6,7 +6,7 @@ $(document).ready(function() {
   // page is now ready, initialize the calendar...
   if ($('#calendar').length > 0) {
     $('#calendar').fullCalendar({
-
+      defaultDate: moment("2015-08-03T12:24:05"),
       defaultView: 'agendaWeek',
 
       selectable: true,
@@ -46,6 +46,26 @@ function calendarSelect(start, end) {
   console.log(start.format('dddd HH:mm'), title, end);
  // sendCalendarSelection(title, start, end);
 };
+
+function calendarSubmit() {
+  console.log('submit called');
+  var clientEvents = $('#calendar').fullCalendar( 'clientEvents' );
+  $('input[name=wtbs]').val(encodeURIComponent(JSONifyClientEvents(clientEvents)));
+  console.log(clientEvents);
+  //$('#calendar-submit').submit();
+
+
+}
+function JSONifyClientEvents(clientEvents) {
+  var strippedEvents = clientEvents.map(function(item) {
+     return {
+      title: item.title,
+      start: item.start.format(),
+      end: item.end.format()
+    }
+  });
+  return JSON.stringify(strippedEvents);
+}
 /*
 function sendCalendarSelection(title, start, end) {
   $.ajax({
