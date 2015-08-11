@@ -11,7 +11,7 @@ class WeeklyTimeBlocksController < ApplicationController
       if @wtb.save
         format.json { render json: @wtb }
       else
-
+        format.json { render json: @wtb.errors, status: :unprocessable_entity }
       end
     end
 

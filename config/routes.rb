@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
   get 'class_participants/:id', to: 'class_participants#show', as: :class_participant
+  post 'class_participants/:id/save_calendar', to: 'class_participants#save_calendar'
   get 'class_participants' => 'class_participants#last'
   get 'class_participants/last' => 'class_participants#last'
 
   get 'weekly_time_blocks' => 'weekly_time_blocks#index'
-  post 'weekly_time_blocks/create'
+  post 'weekly_time_blocks' => 'weekly_time_blocks#create'
   get 'weekly_time_blocks/:id' => 'weekly_time_blocks#show'
   delete 'weekly_time_blocks/:id' => 'weekly_time_blocks#destroy'
   put 'weekly_time_blocks/update'
