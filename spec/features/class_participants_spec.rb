@@ -24,8 +24,20 @@ RSpec.feature "Class Participants",
 
   scenario 'items on the calendar are visible' do
     visit class_participants_path
-    # #calendar > div.fc-view-container > div > table > tbody > tr > td > div.fc-time-grid-container.fc-scroller > div > div.fc-content-skeleton > table > tbody > tr > td:nth-child(4) > div > a.fc-time-grid-event.fc-v-event.fc-event.fc-start.fc-not-end.fc-draggable
-    # fc-event-container .fc-content .fc-time / .fc-title
     expect(page).to have_css(".fc-event-container .fc-time[data-start='#{page_time_format(wtb.from)}']")
+  end
+
+  scenario 'items on the calendar can be saved' do
+    @page = ClassParticipantsPage.new
+    @page.load
+    expect(@page.calendar).to have_event(on: 'sunday', at: '3:00 pm')
+    @page.calendar.event(on: 'sunday', at: '3:00 pm').drag_to @page.calendar.saturday
+    expect(@page.calendar).to have_event(on: 'sat', at: '12:00 pm')
+    @page.calendar.time_row('10am').click
+    expect(@page.calendar).to have_event(on: 'wed', at: '10:00 am')
+    @page.save_button.click
+
+    expect(@page.calendar).to have_event(on: 'wed', at: '10:00 am')
+    expect(@page.calendar).to have_event(on: 'sat', at: '12:00 pm')
   end
 end

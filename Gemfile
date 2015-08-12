@@ -64,4 +64,5 @@ group :test do
   gem 'poltergeist'
   gem 'database_cleaner'
   gem 'selenium-webdriver'
+  gem 'site_prism'
 end

@@ -10,6 +10,7 @@ require 'capybara/rspec'
 require 'capybara/poltergeist'
 require 'shoulda/matchers'
 require 'database_cleaner'
+require 'site_prism'
 
 Capybara.javascript_driver = :poltergeist
 Capybara.javascript_driver = :selenium if ENV['firefox']
@@ -28,6 +29,8 @@ Capybara.javascript_driver = :selenium if ENV['firefox']
 # require only the support files necessary.
 #
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+Dir[Rails.root.join('spec/page_objects/sections/**/*.rb')].each { |f| require f }
+Dir[Rails.root.join('spec/page_objects/**/*.rb')].each { |f| require f }
 
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
