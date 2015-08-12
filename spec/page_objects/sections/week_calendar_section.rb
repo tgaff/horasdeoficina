@@ -28,19 +28,17 @@ class WeekCalendarSection < SitePrism::Section
   element :saturday,   '.fc-time-grid .fc-sat'
 
   elements :time_rows, '.fc-slats tbody tr' # pass text: '6pm' to get more specific
-  def has_event?(on:, at:)
+  def has_event?(on:, at: '')
     event_matcher = build_event_css(on, at)
     root_element.has_css? event_matcher
   end
-  def event(on:, at:)
+  def event(on:, at: '')
     event_matcher = build_event_css(on, at)
     root_element.find event_matcher
   end
   # finds events on the calendar for a specific day and specific start, end time
   # times are like '10:30 AM - 2:30 PM' or '3:00'
-  def get_event_at_date_time(day, start_time, end_time='', *args)
-    # data-full
-    #.fc-time
+  def get_event_at_day_time(day, start_time, end_time='', *args)
     event_matcher = build_event_css(day, start_time, end_time, *args)
     find(event_matcher)
   end
@@ -48,23 +46,25 @@ class WeekCalendarSection < SitePrism::Section
 
   # dragging...
   # at this point we can only drag to wednesday times because individual time rows aren't broken into days
-  # or we can drag to 12 on any day because aren't broken into times...
+  # or we can drag to an unknown (center) (this is noon on firefox)  on any day because days aren't broken into times...
   def find_time_row(time) # format '5pm'
     @root_element.find('.fc-slats tbody tr', text: time)
   end
   alias :time_row :find_time_row
   private
 
-  def build_event_css(day, start_time, end_time='', *args)
+  def build_event_css(day, start_time='', end_time='', *args)
     [start_time, end_time].each(&:upcase!)
     day = day_number(day) if day.class == String
-    time_query = event_location(day_number(day))
-    if end_time.blank?
-      time_query = time_query + " [data-full^='#{start_time}']"
+    event_query = event_location(day_number(day))
+    if start_time.blank? # only day is specified, not time
+    # noop #   event_query = event_query
+    elsif end_time.blank?
+      event_query = event_query + " [data-full^='#{start_time}']"
     else
-      time_query = time_query + " [data-full='#{start_time} - #{end_time}']"
+      event_query = event_query + " [data-full='#{start_time} - #{end_time}']"
     end
-    time_query
+    event_query
   end
   # returns the column number for day, can handle days like
   #  'sunday', 'sun', 2

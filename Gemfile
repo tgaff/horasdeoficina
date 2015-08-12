@@ -65,4 +65,5 @@ group :test do
   gem 'database_cleaner'
   gem 'selenium-webdriver'
   gem 'site_prism'
+  gem 'capybara-screenshot'
 end

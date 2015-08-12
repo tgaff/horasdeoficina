@@ -11,6 +11,7 @@ require 'capybara/poltergeist'
 require 'shoulda/matchers'
 require 'database_cleaner'
 require 'site_prism'
+require 'capybara-screenshot/rspec'
 
 Capybara.javascript_driver = :poltergeist
 Capybara.javascript_driver = :selenium if ENV['firefox']
