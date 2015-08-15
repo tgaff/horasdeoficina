@@ -12,9 +12,11 @@ def time(day, time)
   DateTime.new(2015,8,day,hour,min).in_time_zone
 end
 
+c = Course.create(title: 'Rocket Science')
+Course.create(title: 'Underwater Basket Weaving')
 Role.create(role_name: 'student')
 Role.create(role_name: 'educator')
-cp = ClassParticipant.create(role_id: Role.first.id)
+cp = ClassParticipant.create(role_id: Role.first.id, course_id: c.id)
 
 
 

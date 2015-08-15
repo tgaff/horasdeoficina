@@ -11,15 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150804233227) do
+ActiveRecord::Schema.define(version: 20150815184148) do
 
   create_table "class_participants", force: :cascade do |t|
     t.integer  "role_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "course_id"
   end
 
+  add_index "class_participants", ["course_id"], name: "index_class_participants_on_course_id"
   add_index "class_participants", ["role_id"], name: "index_class_participants_on_role_id"
+
+  create_table "courses", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string   "role_name"

@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :class_participant do
     role
+    course
 
     trait :student do
       association :role, role_name: 'student'
