@@ -7,6 +7,8 @@ RSpec.describe User, type: :model do
   it { should respond_to(:email) }
   it { should respond_to(:password) }
   it { should be_valid }
+  it { should have_many(:course_participants) }
+  it { should have_many(:courses).through(:course_participants) }
 
   it 'is invalid without an email' do
     user = User.new(password: '12345678', password_confirmation: '12345678')

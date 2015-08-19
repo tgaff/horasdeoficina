@@ -10,6 +10,7 @@ RSpec.describe CourseParticipant, type: :model do
   it { should have_many(:weekly_time_blocks) }
   it { should belong_to(:course) }
   it { should validate_presence_of(:course) }
+  it { should belong_to(:user) }
 
   describe 'fg traits' do
     it 'can be a student' do
