@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature "Class Participants",
   %q{
     In order to have a listing of times
-    As a class participant
+    As a course participant
     I want to create and manage schedule times
   },
   :js do
