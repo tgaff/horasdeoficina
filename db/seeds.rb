@@ -16,11 +16,11 @@ c = Course.create(title: 'Rocket Science')
 Course.create(title: 'Underwater Basket Weaving')
 Role.create(role_name: 'student')
 Role.create(role_name: 'educator')
-cp = ClassParticipant.create(role_id: Role.first.id, course_id: c.id)
+cp = CourseParticipant.create(role_id: Role.first.id, course_id: c.id)
 
 
 
-WeeklyTimeBlock.create(from: time(3,'9:00'), to: time(3,'11:00'), class_participant_id: cp.id)
-WeeklyTimeBlock.create(from: time(4,'12:00'), to: time(4,'13:00'), class_participant_id: cp.id)
+WeeklyTimeBlock.create(from: time(3,'9:00'), to: time(3,'11:00'), course_participant_id: cp.id)
+WeeklyTimeBlock.create(from: time(4,'12:00'), to: time(4,'13:00'), course_participant_id: cp.id)
 WeeklyTimeBlock.create(from: time(2,'12:00'), to: time(2,'13:00'))
-WeeklyTimeBlock.create(from: time(4,'22:00'), to: time(5,'23:00'), class_participant_id: cp.id)
+WeeklyTimeBlock.create(from: time(4,'22:00'), to: time(5,'23:00'), course_participant_id: cp.id)

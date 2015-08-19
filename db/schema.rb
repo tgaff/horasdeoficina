@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150819193643) do
+ActiveRecord::Schema.define(version: 20150819203531) do
 
   create_table "course_participants", force: :cascade do |t|
     t.integer  "role_id"
@@ -67,11 +67,11 @@ ActiveRecord::Schema.define(version: 20150819193643) do
     t.datetime "to"
     t.boolean  "can"
     t.integer  "preferred"
-    t.integer  "class_participant_id"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.integer  "course_participant_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
   end
 
-  add_index "weekly_time_blocks", ["class_participant_id"], name: "index_weekly_time_blocks_on_class_participant_id"
+  add_index "weekly_time_blocks", ["course_participant_id"], name: "index_weekly_time_blocks_on_course_participant_id"
 
 end
