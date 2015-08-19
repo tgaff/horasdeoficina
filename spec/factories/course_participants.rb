@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :class_participant do
+  factory :course_participant do
     role
     course
 

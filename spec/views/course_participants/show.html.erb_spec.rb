@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "class_participants/show.html.erb", type: :view do
+RSpec.describe "course_participants/show.html.erb", type: :view do
   # this seems dumb....
   it 'shows a calendar' do
     assign :wtbs, []

@@ -1,5 +1,5 @@
 class Role < ActiveRecord::Base
-  has_many :class_participants
+  has_many :course_participants
 
   before_validation :downcase_role_name
 

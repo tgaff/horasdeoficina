@@ -1,2 +1,2 @@
-module ClassParticipantsHelper
+module CourseParticipantsHelper
 end

@@ -9,26 +9,26 @@ RSpec.feature "Class Participants",
   :js do
 
 
-  let!(:cp) { FactoryGirl.create(:class_participant) }
-  let!(:wtb) { FactoryGirl.create(:weekly_time_block, class_participant: cp) }
+  let!(:cp) { FactoryGirl.create(:course_participant) }
+  let!(:wtb) { FactoryGirl.create(:weekly_time_block, course_participant: cp) }
 
   def page_time_format(dt)
     dt.strftime('%l:%M').strip
   end
 
   scenario 'the calendar is displayed in week view' do
-    visit class_participants_path
+    visit course_participants_path
     expect(page).to have_css('#calendar .fc-agendaWeek-view')
     expect(page.find('#calendar')).to have_css('.fc-day-header', count: 7)
   end
 
   scenario 'items on the calendar are visible' do
-    visit class_participants_path
+    visit course_participants_path
     expect(page).to have_css(".fc-event-container .fc-time[data-start='#{page_time_format(wtb.from)}']")
   end
 
   scenario 'items on the calendar can be saved' do
-    @page = ClassParticipantsPage.new
+    @page = CourseParticipantsPage.new
     @page.load
     expect(@page.calendar).to have_event(on: 'sunday', at: '3:00 pm')
     @page.calendar.event(on: 'sunday', at: '3:00 pm').drag_to @page.calendar.saturday

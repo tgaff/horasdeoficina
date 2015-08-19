@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe ClassParticipantsController, type: :controller do
+RSpec.describe CourseParticipantsController, type: :controller do
 
   describe "GET #show" do
-    let(:participant_id) { FactoryGirl.create(:class_participant).id }
+    let(:participant_id) { FactoryGirl.create(:course_participant).id }
     before do
-      2.times { FactoryGirl.create(:weekly_time_block, class_participant_id: participant_id) }
+      2.times { FactoryGirl.create(:weekly_time_block, course_participant_id: participant_id) }
     end
     it "returns http success" do
       get :show, id: participant_id
@@ -13,7 +13,7 @@ RSpec.describe ClassParticipantsController, type: :controller do
     end
     it "assigns the weekly time blocks belonging to the user" do
       get :show, id: participant_id
-      expect(assigns(:wtbs)).to eq WeeklyTimeBlock.where(class_participant_id: participant_id)
+      expect(assigns(:wtbs)).to eq WeeklyTimeBlock.where(course_participant_id: participant_id)
     end
     it "uses the calendar layout" do
       get :show, id: participant_id
@@ -22,7 +22,7 @@ RSpec.describe ClassParticipantsController, type: :controller do
   end
 
   describe 'GET #last' do
-    let!(:participant) { FactoryGirl.create(:class_participant) }
+    let!(:participant) { FactoryGirl.create(:course_participant) }
     it 'redirects to the last one' do
       get :last
       expect(response).to redirect_to(participant)
@@ -30,7 +30,7 @@ RSpec.describe ClassParticipantsController, type: :controller do
   end
 
   describe 'POST #save_calendar' do
-    let!(:participant) { FactoryGirl.create(:class_participant) }
+    let!(:participant) { FactoryGirl.create(:course_participant) }
     let(:calendar_data) do
       URI.encode( [ { start: momentjs_time(3, '11:00'),
                       end: momentjs_time(3, '13:00'),
@@ -66,10 +66,10 @@ RSpec.describe ClassParticipantsController, type: :controller do
       expect(WeeklyTimeBlock.last.to).to eq DateTime.parse "2015-08-03T14:00:00-00:00"
 
     end
-    it 'saves the wtbs with the correct class_participant id' do
+    it 'saves the wtbs with the correct course_participant id' do
       post :save_calendar, id: participant.id, wtbs: calendar_data
       WeeklyTimeBlock.all.each do |wtb|
-        expect(wtb.class_participant).to eq participant
+        expect(wtb.course_participant).to eq participant
       end
     end
   end

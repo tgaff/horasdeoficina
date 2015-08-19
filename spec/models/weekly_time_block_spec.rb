@@ -4,7 +4,7 @@ RSpec.describe WeeklyTimeBlock, type: :model do
   subject(:weekly_time_block) { FactoryGirl.build(:weekly_time_block) }
 
   it { should be_valid }
-  it { should belong_to :class_participant }
+  it { should belong_to :course_participant }
 
   it { should validate_presence_of :from }
   it { should validate_presence_of :to }
@@ -59,40 +59,40 @@ RSpec.describe WeeklyTimeBlock, type: :model do
     end
   end
   describe 'participant with multiple time blocks' do
-    let(:participant) { FactoryGirl.create(:class_participant) }
+    let(:participant) { FactoryGirl.create(:course_participant) }
     before do
-      FactoryGirl.create(:weekly_time_block, class_participant: participant,
+      FactoryGirl.create(:weekly_time_block, course_participant: participant,
                         from: '08:00', to: '13:00')
-      FactoryGirl.create(:weekly_time_block, class_participant: participant,
+      FactoryGirl.create(:weekly_time_block, course_participant: participant,
                         from: '17:00', to: '22:00')
     end
 
     it 'cannot create a time-block that starts during another' do
-      new_tb = FactoryGirl.build(:weekly_time_block, class_participant: participant,
+      new_tb = FactoryGirl.build(:weekly_time_block, course_participant: participant,
                         from: '12:00', to: '15:00')
       expect(new_tb).to be_invalid
     end
 
     it 'cannot create a time-block that ends during another' do
-      new_tb = FactoryGirl.build(:weekly_time_block, class_participant: participant,
+      new_tb = FactoryGirl.build(:weekly_time_block, course_participant: participant,
                         from: '14:00', to: '18:00')
       expect(new_tb).to be_invalid
     end
 
     it 'can create a time-block that abuts others' do
-      new_tb = FactoryGirl.build(:weekly_time_block, class_participant: participant,
+      new_tb = FactoryGirl.build(:weekly_time_block, course_participant: participant,
                         from: '13:00', to: '17:00')
       expect(new_tb).to be_valid
     end
 
     it 'can create a time-block that overlaps others if not on the same day' do
-      new_tb = FactoryGirl.build(:weekly_time_block, class_participant: participant,
+      new_tb = FactoryGirl.build(:weekly_time_block, course_participant: participant,
                                  from: DateTime.new(2001, 1, 1, 9), to: DateTime.new(2015, 8, 3, 18))
       expect(new_tb).to be_valid
     end
 
     it 'cannot create a time-block that completely contains another' do
-      new_tb = FactoryGirl.build(:weekly_time_block, class_participant: participant,
+      new_tb = FactoryGirl.build(:weekly_time_block, course_participant: participant,
                         from: '07:00', to: '23:00')
       expect(new_tb).to be_invalid
     end

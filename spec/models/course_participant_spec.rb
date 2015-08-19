@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe ClassParticipant, type: :model do
-  subject(:class_participant) { FactoryGirl.create(:class_participant) }
+RSpec.describe CourseParticipant, type: :model do
+  subject(:course_participant) { FactoryGirl.create(:course_participant) }
 
   it { should be_valid }
   it { should respond_to(:role) }
@@ -13,13 +13,13 @@ RSpec.describe ClassParticipant, type: :model do
 
   describe 'fg traits' do
     it 'can be a student' do
-      student = FactoryGirl.build(:class_participant, :student)
+      student = FactoryGirl.build(:course_participant, :student)
       expect(student).to be_valid
       expect(student.role.role_name).to eq 'student'
     end
 
     it 'can be an educator' do
-      student = FactoryGirl.build(:class_participant, :educator)
+      student = FactoryGirl.build(:course_participant, :educator)
       expect(student).to be_valid
       expect(student.role.role_name).to eq 'educator'
     end

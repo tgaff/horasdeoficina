@@ -50,6 +50,6 @@ private
     @wtb = WeeklyTimeBlock.find(params[:id])
   end
   def wtb_params
-    params.require(:wtb).permit(:from, :to, :can, :class_participant_id)
+    params.require(:wtb).permit(:from, :to, :can, :course_participant_id)
   end
 end

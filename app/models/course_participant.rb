@@ -1,4 +1,4 @@
-class ClassParticipant < ActiveRecord::Base
+class CourseParticipant < ActiveRecord::Base
   belongs_to :role
   has_many :weekly_time_blocks
   belongs_to :course

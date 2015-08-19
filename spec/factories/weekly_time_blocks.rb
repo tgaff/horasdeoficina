@@ -4,6 +4,6 @@ FactoryGirl.define do
     to DateTime.new(2015,8,2,17,00)
     can false
     preferred 1
-    class_participant nil
+    course_participant nil
   end
 end

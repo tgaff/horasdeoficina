@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   resources :courses
-  get 'class_participants/:id', to: 'class_participants#show', as: :class_participant
-  post 'class_participants/:id/save_calendar', to: 'class_participants#save_calendar'
-  get 'class_participants' => 'class_participants#last'
-  get 'class_participants/last' => 'class_participants#last'
+  get 'course_participants/:id', to: 'course_participants#show', as: :course_participant
+  post 'course_participants/:id/save_calendar', to: 'course_participants#save_calendar'
+  get 'course_participants' => 'course_participants#last'
+  get 'course_participants/last' => 'course_participants#last'
 
   get 'weekly_time_blocks' => 'weekly_time_blocks#index'
   post 'weekly_time_blocks' => 'weekly_time_blocks#create'
@@ -20,7 +20,7 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   #root 'usual_suspects#readme'
-  root 'class_participants#last'
+  root 'course_participants#last'
 
   # devise will redirect to this path on sign-in:
   #

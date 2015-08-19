@@ -1,8 +1,8 @@
-class ClassParticipantsController < ApplicationController
+class CourseParticipantsController < ApplicationController
   def show
     @id = params[:id]
     @save = WeeklyTimeBlock.new
-    @wtbs = WeeklyTimeBlock.where(class_participant_id: params[:id])
+    @wtbs = WeeklyTimeBlock.where(course_participant_id: params[:id])
     render layout: 'calendar_layout'
   end
 
@@ -13,13 +13,13 @@ class ClassParticipantsController < ApplicationController
       @wtb = WeeklyTimeBlock.new
       @wtb.from = parse_date_time( wtb['start'] )
       @wtb.to = parse_date_time( wtb['end'] )
-      @wtb.class_participant = ClassParticipant.find params[:id]
+      @wtb.course_participant = CourseParticipant.find params[:id]
       @wtb.save!
     end
-    redirect_to class_participant_path
+    redirect_to course_participant_path
   end
   def last
-    redirect_to ClassParticipant.last
+    redirect_to CourseParticipant.last
   end
   private
   def calendar_params

@@ -5,7 +5,7 @@ RSpec.describe Role, type: :model do
   subject(:role) { FactoryGirl.create(:role) }
 
   it { should be_valid }
-  it { should have_many :class_participants }
+  it { should have_many :course_participants }
   it { should validate_presence_of :role_name }
   it { should validate_uniqueness_of(:role_name).case_insensitive }
 

@@ -1,11 +1,11 @@
 class WeeklyTimeBlock < ActiveRecord::Base
-  belongs_to :class_participant
+  belongs_to :course_participant
 
   before_validation :morph_dates
 
   validates_presence_of :to, :from
   validate :must_be_valid_date_range
-  validate :must_not_overlap_same_class_participant_times
+  validate :must_not_overlap_same_course_participant_times
 
   MINIMUM_VALID_DATE = DateTime.new(2015,8,1,23,59,59)
   MAXIMUM_VALID_DATE = DateTime.new(2015,8,9)
@@ -23,9 +23,9 @@ class WeeklyTimeBlock < ActiveRecord::Base
       end
     end
   end
-  def must_not_overlap_same_class_participant_times
-    unless class_participant.blank?
-      time_blocks = WeeklyTimeBlock.where class_participant: class_participant
+  def must_not_overlap_same_course_participant_times
+    unless course_participant.blank?
+      time_blocks = WeeklyTimeBlock.where course_participant: course_participant
       # beginning starts during another ( [ )  ]
       time_blocks.each do |time_block|
         if time_is_between?(from, time_block.from, time_block.to)

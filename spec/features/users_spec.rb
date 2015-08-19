@@ -65,6 +65,6 @@ RSpec.feature "User sign-up", js: true do
     fill_in 'Password confirmation', with: '12345678'
     click_on 'Sign up'
 
-    expect(page.current_url).to match /class_participants/
+    expect(page.current_url).to match /course_participants/
   end
 end
