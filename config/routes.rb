@@ -20,7 +20,7 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   #root 'usual_suspects#readme'
-  root 'course_participants#last'
+  root 'courses#index'
 
   # devise will redirect to this path on sign-in:
   #
