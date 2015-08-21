@@ -12,9 +12,9 @@ class Role < ActiveRecord::Base
   end
 
   def self.student
-    where(role_name: 'student').last
+    where(role_name: 'student').last || create(role_name: 'student')
   end
   def self.educator
-    where(role_name: 'educator').last
+    where(role_name: 'educator').last || create(role_name: 'educator')
   end
 end

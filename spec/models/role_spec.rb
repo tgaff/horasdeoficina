@@ -15,22 +15,34 @@ RSpec.describe Role, type: :model do
   end
 
   describe '::educator' do
-    before { FactoryGirl.create :educator }
     it 'returns an instace of the model' do
       expect(Role::educator).to be_a Role
     end
     it 'finds the "student" role' do
       expect(Role::educator.role_name).to eq 'educator'
     end
+    it 'creates is if it doesnt exist' do
+      expect { Role.educator }.to change { Role.all.count }
+    end
+    it "doesn't create it if it does exist" do
+      Role.educator
+      expect { Role.educator }.to_not change { Role.all.count }
+    end
   end
 
   describe '::student' do
-    before { FactoryGirl.create :student_role }
     it 'returns an instace of the model' do
       expect(Role::student).to be_a Role
     end
     it 'finds the "student" role' do
       expect(Role::student.role_name).to eq 'student'
+    end
+    it 'creates it if it doesnt exist' do
+      expect { Role.student }.to change { Role.all.count }
+    end
+    it "doesn't create a new one if it already exists " do
+      Role.student
+      expect { Role.student }.to_not change { Role.all.count }
     end
   end
 end
