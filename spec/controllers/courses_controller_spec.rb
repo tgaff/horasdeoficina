@@ -19,6 +19,8 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe CoursesController, type: :controller do
+  let!(:user) { FactoryGirl.create :user }
+  before { sign_in user }
 
   # This should return the minimal set of attributes required to create a valid
   # Course. As you add validations to Course, be sure to
@@ -30,17 +32,23 @@ RSpec.describe CoursesController, type: :controller do
   let(:invalid_attributes) {
     { title: nil }
   }
-
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # CoursesController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
   describe "GET #index" do
-    it "assigns all courses as @courses" do
+    it "doesnt assign other users courses to @courses" do
       course = Course.create! valid_attributes
       get :index, {}, valid_session
-      expect(assigns(:courses)).to eq([course])
+      expect(assigns(:courses)).to eq([])
+    end
+    # user.course_participants.build(role: Role.student, course: Course.new(title: 'baskets'))
+    it 'assigns the courses for this user to @courses' do
+      user = FactoryGirl.create(:user, :with_courses, count: 3)
+      sign_in user
+      get :index, {}, valid_session
+      expect(assigns(:courses).count).to eq 3
     end
   end
 
