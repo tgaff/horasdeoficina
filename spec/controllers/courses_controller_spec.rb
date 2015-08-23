@@ -107,6 +107,11 @@ RSpec.describe CoursesController, type: :controller do
         post :create, {:course => valid_attributes}, valid_session
         expect(response).to redirect_to(Course.last)
       end
+
+      it "assigns the current user as a 'creator' participant" do
+        expect { post :create, { course: valid_attributes }, valid_session }
+          .to change(user.courses, :count).by 1
+      end
     end
 
     context "with invalid params" do

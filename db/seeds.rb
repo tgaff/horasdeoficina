@@ -13,7 +13,7 @@ def time(day, time)
 end
 
 user = User.create!(email: 'test@test.com', password: 'testtest')
-
+user2 = User.create!(email: 'test2@test.com', password: 'testtest')
 
 c = Course.create(title: 'Rocket Science')
 Course.create(title: 'Underwater Basket Weaving')
