@@ -4,14 +4,13 @@ FactoryGirl.define do
     course
 
     trait :student do
-      association :role, role_name: 'student'
+      association :role, factory: :student_role
     end
-
 
     trait :educator do
-      association :role, role_name: 'educator'
+      association :role, :role, role_name: 'educator'
     end
-
+    factory :student_participant, traits: [:student]
   end
 
 end
