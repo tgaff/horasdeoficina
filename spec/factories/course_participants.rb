@@ -8,9 +8,11 @@ FactoryGirl.define do
     end
 
     trait :educator do
-      association :role, :role, role_name: 'educator'
+      association :role, factory: :educator_role
     end
+
     factory :student_participant, traits: [:student]
+    factory :educator_participant, traits: [:educator]
   end
 
 end

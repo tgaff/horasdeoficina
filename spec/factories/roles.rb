@@ -6,7 +6,8 @@ FactoryGirl.define do
       initialize_with { Role.student }
     end
     factory :educator_role do
-      role_name 'educator'
+      role_name 'educator' # note, this is only here as documentation
+      initialize_with { Role.educator }
     end
   end
 end
