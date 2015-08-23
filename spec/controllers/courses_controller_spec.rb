@@ -55,8 +55,15 @@ RSpec.describe CoursesController, type: :controller do
   describe "GET #show" do
     it "assigns the requested course as @course" do
       course = Course.create! valid_attributes
+      FactoryGirl.create(:course_participant, user: user, course: course)
       get :show, {:id => course.to_param}, valid_session
       expect(assigns(:course)).to eq(course)
+    end
+
+    it "doesn't assign the course if it's not this user's" do
+      course = FactoryGirl.create(:course)
+      expect { get :show, { id: course.to_param }, valid_session }
+        .to raise_error ActiveRecord::RecordNotFound
     end
   end
 
@@ -70,8 +77,15 @@ RSpec.describe CoursesController, type: :controller do
   describe "GET #edit" do
     it "assigns the requested course as @course" do
       course = Course.create! valid_attributes
+      FactoryGirl.create(:course_participant, user: user, course: course)
       get :edit, {:id => course.to_param}, valid_session
       expect(assigns(:course)).to eq(course)
+    end
+    it "404s if it's not your course" do
+      course = Course.create! valid_attributes
+      expect do
+        get :edit, {id: course.to_param}, valid_session
+      end.to raise_error ActiveRecord::RecordNotFound
     end
   end
 
@@ -109,26 +123,26 @@ RSpec.describe CoursesController, type: :controller do
   end
 
   describe "PUT #update" do
+
+    let!(:course) { FactoryGirl.create(:course_for_user, user: user) }
+
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        { title: "Advanced Rocket Science" }
       }
 
       it "updates the requested course" do
-        course = Course.create! valid_attributes
         put :update, {:id => course.to_param, :course => new_attributes}, valid_session
         course.reload
-        skip("Add assertions for updated state")
+        expect(course.title).to match 'Advanced'
       end
 
       it "assigns the requested course as @course" do
-        course = Course.create! valid_attributes
         put :update, {:id => course.to_param, :course => valid_attributes}, valid_session
         expect(assigns(:course)).to eq(course)
       end
 
       it "redirects to the course" do
-        course = Course.create! valid_attributes
         put :update, {:id => course.to_param, :course => valid_attributes}, valid_session
         expect(response).to redirect_to(course)
       end
@@ -136,32 +150,47 @@ RSpec.describe CoursesController, type: :controller do
 
     context "with invalid params" do
       it "assigns the course as @course" do
-        course = Course.create! valid_attributes
         put :update, {:id => course.to_param, :course => invalid_attributes}, valid_session
         expect(assigns(:course)).to eq(course)
       end
 
       it "re-renders the 'edit' template" do
-        course = Course.create! valid_attributes
         put :update, {:id => course.to_param, :course => invalid_attributes}, valid_session
         expect(response).to render_template("edit")
+      end
+    end
+
+    context "for courses not owned by the user" do
+      it "404s" do
+        new_course = FactoryGirl.create(:course)
+        expect do
+          put :update, {id: new_course.to_param }, valid_session
+        end.to raise_error ActiveRecord::RecordNotFound
       end
     end
   end
 
   describe "DELETE #destroy" do
-    it "destroys the requested course" do
-      course = Course.create! valid_attributes
-      expect {
-        delete :destroy, {:id => course.to_param}, valid_session
-      }.to change(Course, :count).by(-1)
-    end
+    context "for courses owned by the user" do
+      let!(:course) { FactoryGirl.create(:course_for_user, user: user) }
+      it "destroys the requested course" do
+        expect {
+          delete :destroy, {:id => course.to_param}, valid_session
+        }.to change(Course, :count).by(-1)
+      end
 
-    it "redirects to the courses list" do
-      course = Course.create! valid_attributes
-      delete :destroy, {:id => course.to_param}, valid_session
-      expect(response).to redirect_to(courses_url)
+      it "redirects to the courses list" do
+        delete :destroy, {:id => course.to_param}, valid_session
+        expect(response).to redirect_to(courses_url)
+      end
+    end
+    context "for courses not owned by the user" do
+      let!(:course) { FactoryGirl.create(:course) }
+
+      it "404s" do
+        expect { delete :destroy, {id: course.to_param}, valid_session }
+          .to raise_error ActiveRecord::RecordNotFound
+      end
     end
   end
-
 end
