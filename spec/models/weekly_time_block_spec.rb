@@ -87,7 +87,7 @@ RSpec.describe WeeklyTimeBlock, type: :model do
 
     it 'can create a time-block that overlaps others if not on the same day' do
       new_tb = FactoryGirl.build(:weekly_time_block, course_participant: participant,
-                                 from: DateTime.new(2001, 1, 1, 9), to: DateTime.new(2015, 8, 3, 18))
+                                 from: DateTime.new(2015, 8, 5, 9), to: DateTime.new(2015, 8, 5, 18))
       expect(new_tb).to be_valid
     end
 
