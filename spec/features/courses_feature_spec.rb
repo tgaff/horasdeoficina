@@ -22,8 +22,17 @@ RSpec.feature "Courses",
     p = CoursesIndexPage.new
     p.load
     expect((p.learning_courses text: 'Rocket Science').count).to eq 2
+    binding.pry
+    puts ''
   end
 
-
+  scenario 'test' do
+    UsersSignInPage.sign_in_user(student_user.email)
+    p = CoursesIndexPage.new
+    p2 = CoursesIndexPage.new
+    p.load
+    binding.pry
+    puts ''
+  end
 
 end
