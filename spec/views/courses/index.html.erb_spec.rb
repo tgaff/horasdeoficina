@@ -14,9 +14,9 @@ RSpec.describe "courses/index", type: :view do
         course_participants: [ @educator_participant ]
       )
     ])
-
-
+    sign_in user
   end
+  let!(:user) { FactoryGirl.create(:user) } # needed whenever we use Devise in the view
 
   it "renders a list of courses" do
     render
@@ -48,5 +48,11 @@ RSpec.describe "courses/index", type: :view do
   it "says 'My courses'" do
     render
     assert_select "h2", text: 'My Courses'
+  end
+
+  it 'shows the user info at the top' do
+    allow(view).to receive(:current_user) { user }
+    render
+    assert_select 'h2', text: user.email
   end
 end

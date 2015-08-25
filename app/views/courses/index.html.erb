@@ -1,22 +1,28 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Courses</h1>
+<h1>Course Information</h1>
 
-<h2>My Courses</h2>
-<div id='teaching'>
-  <% teaching_courses = as_an_educator(@courses) %>
-  <% if teaching_courses.length > 0  %>
-    <%= render partial: 'course_list', locals:
-      { heading: 'Teaching', specific_courses: teaching_courses } %>
-  <% end %>
+<div id='user-info'>
+  <h2><%= current_user.email %></h2>
 </div>
-<div id='learning'>
-  <% learning_courses = as_a_student(@courses) %>
-  <% if learning_courses.length > 0  %>
-    <%= render partial: 'course_list', locals:
-      { heading: 'Learning', specific_courses: learning_courses } %>
-  <% end %>
-</div>
-  <br>
 
-<%= link_to 'New Course', new_course_path %>
+<div id='courses'>
+  <h2>My Courses</h2>
+  <div id='teaching'>
+    <% teaching_courses = as_an_educator(@courses) %>
+    <% if teaching_courses.length > 0  %>
+      <%= render partial: 'course_list', locals:
+        { heading: 'Teaching', specific_courses: teaching_courses } %>
+    <% end %>
+  </div>
+  <div id='learning'>
+    <% learning_courses = as_a_student(@courses) %>
+    <% if learning_courses.length > 0  %>
+      <%= render partial: 'course_list', locals:
+        { heading: 'Learning', specific_courses: learning_courses } %>
+    <% end %>
+  </div>
+    <br>
+
+    <%= link_to 'New Course', new_course_path %>
+</div>
