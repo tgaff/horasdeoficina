@@ -10,4 +10,11 @@ class Role < ActiveRecord::Base
   def downcase_role_name
     self.role_name = self.role_name.downcase if self.role_name
   end
+
+  def self.student
+    where(role_name: 'student').last || create(role_name: 'student')
+  end
+  def self.educator
+    where(role_name: 'educator').last || create(role_name: 'educator')
+  end
 end

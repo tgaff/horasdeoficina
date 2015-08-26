@@ -11,5 +11,25 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe CoursesHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before(:each) do
+    @courses = FactoryGirl.create_list(:course, 2)
+    sp  = FactoryGirl.create(:student_participant, course: @courses.first)
+    tp  = FactoryGirl.create(:educator_participant, course: @courses.last)
+  end
+
+  describe '#as_an_educator' do
+    it "returns only the courses that have a role of 'educator'" do
+      res = helper.as_an_educator(@courses)
+      expect(res.count).to eq 1
+      expect(res.first.course_participants.first.role.role_name).to eq 'educator'
+    end
+  end
+
+  describe '#as_a_student' do
+    it "returns only the courses that have a role of 'student'" do
+      res = helper.as_a_student(@courses)
+      expect(res.count).to eq 1
+      expect(res.first.course_participants.first.role.role_name).to eq 'student'
+    end
+  end
 end

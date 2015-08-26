@@ -12,12 +12,15 @@ def time(day, time)
   DateTime.new(2015,8,day,hour,min).in_time_zone
 end
 
-c = Course.create(title: 'Rocket Science')
-Course.create(title: 'Underwater Basket Weaving')
-Role.create(role_name: 'student')
-Role.create(role_name: 'educator')
-cp = CourseParticipant.create(role_id: Role.first.id, course_id: c.id)
+user = User.create!(email: 'test@test.com', password: 'testtest')
+user2 = User.create!(email: 'test2@test.com', password: 'testtest')
 
+c = Course.create(title: 'Rocket Science')
+c2 = Course.create(title: 'Underwater Basket Weaving')
+learning = Role.create(role_name: 'student')
+teaching = Role.create(role_name: 'educator')
+cp = CourseParticipant.create(role: learning, course_id: c.id, user_id: user.id)
+CourseParticipant.create(role: teaching, course: c2, user: user)
 
 
 WeeklyTimeBlock.create(from: time(3,'9:00'), to: time(3,'11:00'), course_participant_id: cp.id)

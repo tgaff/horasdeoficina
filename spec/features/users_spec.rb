@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 # note JS is not required for these but we want to make sure that async specs are setup correctly
-RSpec.feature "User sign-in", :js do
+RSpec.feature "User sign-in" do
   background do
     # use this BDD syntax in feature specs
   end
@@ -52,9 +52,6 @@ RSpec.feature "User sign-up", js: true do
     click_on 'Sign up'
 
     expect(User.last.email).to eq new_email
-
-    visit '/users/edit'
-    expect(page).to have_content 'Logout'
     expect(page).to have_content 'You have signed up successfully'
   end
 
