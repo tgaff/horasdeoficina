@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  resources :courses
+  resources :courses do
+    get 'calendar' => 'course_participants#show'
+    post 'calendar/update', to: 'course_participants#save_calendar'
+  end
   get 'course_participants/:id', to: 'course_participants#show', as: :course_participant
   post 'course_participants/:id/save_calendar', to: 'course_participants#save_calendar'
   get 'course_participants' => 'course_participants#last'

@@ -10,6 +10,8 @@ class CoursesController < ApplicationController
   # GET /courses/1
   # GET /courses/1.json
   def show
+
+
   end
 
   # GET /courses/new
@@ -34,6 +36,7 @@ class CoursesController < ApplicationController
         format.html { redirect_to @course, notice: 'Course was successfully created.' }
         format.json { render :show, status: :created, location: @course }
       else
+        # should we course_participant.destroy?
         format.html { render :new }
         format.json { render json: @course.errors, status: :unprocessable_entity }
       end
