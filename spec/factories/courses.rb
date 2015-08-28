@@ -15,6 +15,7 @@ FactoryGirl.define do
           end
         cp.user = evaluator.user
         course.course_participants << cp
+        cp.save!
       end
     end
   end

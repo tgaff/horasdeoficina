@@ -1,7 +1,7 @@
 
 <div id='calendar'></div>
 
-<%= form_tag("#{@id}/save_calendar", method: :post) do |f| %>
+<%= form_tag("calendar/update", method: :post) do |f| %>
   <%= hidden_field_tag :wtbs, @wtbs %>
   <input type="hidden" name="wtbs2" value="" />
   <%= submit_tag 'Save calendar', :onclick => "return calendarSubmit();" %>

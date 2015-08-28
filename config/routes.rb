@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
-  resources :courses
-  get 'course_participants/:id', to: 'course_participants#show', as: :course_participant
-  post 'course_participants/:id/save_calendar', to: 'course_participants#save_calendar'
-  get 'course_participants' => 'course_participants#last'
-  get 'course_participants/last' => 'course_participants#last'
-
+  resources :courses do
+    get 'calendar' => 'course_participants#show'
+    post 'calendar/update', to: 'course_participants#save_calendar'
+  end
+  # TODO: these need revision/destruction
   get 'weekly_time_blocks' => 'weekly_time_blocks#index'
   post 'weekly_time_blocks' => 'weekly_time_blocks#create'
   get 'weekly_time_blocks/:id' => 'weekly_time_blocks#show'

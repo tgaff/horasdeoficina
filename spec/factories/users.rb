@@ -26,6 +26,7 @@ FactoryGirl.define do
       end
     end
 
+    factory :user_with_courses, traits: [:with_courses]
 
   end
 end

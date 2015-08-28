@@ -1,31 +1,39 @@
 class CourseParticipantsController < ApplicationController
+  before_action :authenticate_user!
+
   def show
-    @id = params[:id]
     @save = WeeklyTimeBlock.new
-    @wtbs = WeeklyTimeBlock.where(course_participant_id: params[:id])
+    @wtbs = get_current_wtbs
     render layout: 'calendar_layout'
   end
 
   def save_calendar
-    WeeklyTimeBlock.all.each(&:destroy!)
-    wtbs = JSON.parse URI.decode calendar_params
+    #WeeklyTimeBlock.all.each(&:destroy!)
+    get_current_wtbs.each(&:destroy!)
+    wtbs = JSON.parse URI.decode calendar_params[:wtbs]
     wtbs.each do |wtb|
       @wtb = WeeklyTimeBlock.new
       @wtb.from = parse_date_time( wtb['start'] )
       @wtb.to = parse_date_time( wtb['end'] )
-      @wtb.course_participant = CourseParticipant.find params[:id]
+      @wtb.course_participant = get_course_participant
       @wtb.save!
     end
-    redirect_to course_participant_path
+    redirect_to course_calendar_path
   end
-  def last
-    redirect_to CourseParticipant.last
-  end
+
   private
   def calendar_params
     params.require(:wtbs)
+    params.require(:course_id)
+    params.permit(:wtbs, :course_id)
   end
   def parse_date_time(input)
     DateTime.strptime(input, '%Y-%m-%dT%H:%M')
+  end
+  def get_course_participant
+    current_user.courses.find(params[:course_id]).course_participants.last
+  end
+  def get_current_wtbs
+    @wtbs = WeeklyTimeBlock.where(course_participant: get_course_participant)
   end
 end

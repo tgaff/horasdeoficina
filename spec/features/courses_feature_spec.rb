@@ -24,6 +24,4 @@ RSpec.feature "Courses",
     expect((p.learning_courses text: 'Rocket Science').count).to eq 2
   end
 
-
-
 end
