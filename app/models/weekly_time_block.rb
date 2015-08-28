@@ -55,6 +55,8 @@ class WeeklyTimeBlock < ActiveRecord::Base
 
   # 2015-08-02 is our official week we use for everything (rails doesn't have a format for dotw)
   # sets self.from and self.to to have the same time but in the week beginning 2015-08-02
+  # FIXME: https://github.com/tgaff/horasdeoficina/issues/6
+
   def morph_dates
     unless self[:from].blank? || self[:to].blank?
       [:from, :to].each do |attr|

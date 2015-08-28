@@ -8,14 +8,14 @@
 <br>
 <div id='courses'>
   <h2>My Courses</h2>
-  <div id='teaching'>
+  <div id='teaching' class='courses'>
     <% teaching_courses = as_an_educator(@courses) %>
     <% if teaching_courses.length > 0  %>
       <%= render partial: 'course_list', locals:
         { heading: 'Teaching', specific_courses: teaching_courses } %>
     <% end %>
   </div>
-  <div id='learning'>
+  <div id='learning' class='courses'>
     <% learning_courses = as_a_student(@courses) %>
     <% if learning_courses.length > 0  %>
       <%= render partial: 'course_list', locals:

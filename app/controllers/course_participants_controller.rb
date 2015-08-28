@@ -20,9 +20,7 @@ class CourseParticipantsController < ApplicationController
     end
     redirect_to course_calendar_path
   end
-#  def last
-#    redirect_to CourseParticipant.last
-#  end
+
   private
   def calendar_params
     params.require(:wtbs)

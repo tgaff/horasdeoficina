@@ -55,4 +55,9 @@ RSpec.describe "courses/index", type: :view do
     render
     assert_select 'h2', text: user.email
   end
+
+  it 'shows a link to the calendar page' do
+    render
+    expect(rendered).to have_css('tbody td', text: 'Edit my calendar')
+  end
 end
