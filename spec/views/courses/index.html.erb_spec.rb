@@ -58,6 +58,10 @@ RSpec.describe "courses/index", type: :view do
 
   it 'shows a link to the calendar page' do
     render
-    expect(rendered).to have_css('tbody td', text: 'Edit my calendar')
+    expect(rendered).to have_css('tbody td a', text: 'Edit my calendar')
+
+    # FIXME: this should work but doesn't; capybara bug?
+    # Capybara.string(rendered).has_link? 'td a', href: /courses.*calendar/
+    expect(Capybara.string(rendered).first('tbody td a', text: 'Edit my calendar')[:href]).to match /courses.*calendar/
   end
 end
