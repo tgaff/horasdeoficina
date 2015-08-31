@@ -29,7 +29,14 @@ RSpec.describe "courses/edit", type: :view do
     render
 
     assert_select 'div#participants' do
-      assert_select 'h2', text: 'Participants'
+      assert_select 'h2', text: 'Course Participants'
+    end
+  end
+
+  describe 'scheduling section' do
+    it 'has two calendar images' do
+      render
+      assert_select 'div#scheduling img', count: 2
     end
   end
 

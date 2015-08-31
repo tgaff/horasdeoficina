@@ -4,10 +4,14 @@
 <%= render 'form' %>
 <div id='scheduling'>
   <h2>Scheduling</h2>
+    <h3>Optimal meeting times (calculated)</h3>
+    <%=image_tag('calendar.png', alt: 'optimal meeting times', class: 'mini-cal') %>
+    <h3>Edit my available times</h3>
+    <%=image_tag('calendar.png', alt: 'optimal meeting times', class: 'mini-cal') %>
 </div>
 
 <div id='participants'>
-  <h2>Participants</h2>
+  <h2>Course Participants</h2>
   <%= render 'participants_list' %>
 </div>
 
