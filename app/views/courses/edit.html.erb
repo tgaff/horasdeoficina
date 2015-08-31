@@ -1,6 +1,17 @@
 <h1>Editing Course</h1>
 
+<h2>Course information</h2>
 <%= render 'form' %>
+<div id='scheduling'>
+  <h2>Scheduling</h2>
+</div>
+
+<div id='participants'>
+  <h2>Participants</h2>
+  <%= render 'participants_list' %>
+</div>
 
 <%= link_to 'Show', @course %> |
 <%= link_to 'Back', courses_path %>
+
+

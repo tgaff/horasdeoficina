@@ -11,6 +11,11 @@ module CoursesHelper
   end
 
 
+  #take a course and return something like:
+  # { students: [ { email: 'g@g.com', created_at ...} , ],
+  #  educators: [ { email... } ],
+  #  others: []
+  #  }
   def user_courses_by_type(course)
     students = []
     educators = []

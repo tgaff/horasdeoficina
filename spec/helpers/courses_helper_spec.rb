@@ -92,6 +92,5 @@ RSpec.describe CoursesHelper, type: :helper do
       expect(result[:educators].first.email).to eq teacher.email
     end
 
-
   end
 end
