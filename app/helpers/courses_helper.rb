@@ -10,6 +10,27 @@ module CoursesHelper
     as_a('student', courses)
   end
 
+
+  def user_courses_by_type(course)
+    students = []
+    educators = []
+    others = []
+    course.course_participants.each do |cp|
+      case cp.role.role_name
+      when 'student'
+        students << cp.user
+      when 'educator'
+        educators << cp.user
+      else
+        others << cp.user
+      end
+    end
+    { students: students,
+      educators: educators,
+      others: others
+    }
+  end
+
   private
 
   def as_a(role_name, courses)
@@ -18,3 +39,5 @@ module CoursesHelper
     end
   end
 end
+
+
