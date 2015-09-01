@@ -19,7 +19,6 @@ RSpec.describe "courses/edit", type: :view do
 
   it 'has a Scheduling section' do
     render
-
     assert_select 'div#scheduling' do
       assert_select 'h2', text: 'Scheduling'
     end
@@ -37,6 +36,10 @@ RSpec.describe "courses/edit", type: :view do
     it 'has two calendar images' do
       render
       assert_select 'div#scheduling img', count: 2
+    end
+    it 'has a link to calendar page' do
+      render
+      expect(capybara.find('div#scheduling a')['href']).to match course_calendar_path(@course)
     end
   end
 

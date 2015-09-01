@@ -7,7 +7,9 @@
     <h3>Optimal meeting times (calculated)</h3>
     <%=image_tag('calendar.png', alt: 'optimal meeting times', class: 'mini-cal') %>
     <h3>Edit my available times</h3>
-    <%=image_tag('calendar.png', alt: 'optimal meeting times', class: 'mini-cal') %>
+    <%= link_to  course_calendar_path(@course) do %>
+      <%=image_tag('calendar.png', alt: 'optimal meeting times', class: 'mini-cal') %>
+    <% end %>
 </div>
 
 <div id='participants'>
