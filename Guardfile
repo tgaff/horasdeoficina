@@ -24,7 +24,7 @@
 #  * zeus: 'zeus rspec' (requires the server to be started separately)
 #  * 'just' rspec: 'rspec'
 
-guard :rspec, cmd: "bundle exec rspec" do
+guard :rspec, cmd: "zeus rspec" do
   require "guard/rspec/dsl"
   dsl = Guard::RSpec::Dsl.new(self)
 
@@ -86,11 +86,11 @@ guard 'zeus' do
   # Ruby apps
   ruby = OpenStruct.new
   ruby.lib_files = /^(lib\/.+)\.rb$/
-
+=begin
   watch(rspec.spec_files)
   watch(rspec.spec_helper) { rspec.spec_dir }
   watch(ruby.lib_files) { |m| rspec.spec.call(m[1]) }
-
+=end
   # Rails example
   rails = OpenStruct.new
   rails.app_files = /^app\/(.+)\.rb$/
