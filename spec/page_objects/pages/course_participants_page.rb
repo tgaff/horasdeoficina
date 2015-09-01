@@ -1,6 +1,8 @@
 class CourseParticipantsPage < SitePrism::Page
 #  set_url 'course_participants/{:id}/'
   set_url '/courses/{:course_id}/calendar'
+  set_url_matcher /courses.*\/calendar/
+
   section :calendar, WeekCalendarSection, '#calendar'
 
   element :save_button, 'input[name="commit"]'
@@ -17,3 +19,4 @@ class CourseParticipantsPage < SitePrism::Page
     page.navigate_here
   end
 end
+
