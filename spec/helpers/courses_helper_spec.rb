@@ -11,10 +11,14 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe CoursesHelper, type: :helper do
+
+  let(:user) { FactoryGirl.create(:user_with_courses, as_a: :student) }
+
   before(:each) do
+    sign_in user
     @courses = FactoryGirl.create_list(:course, 2)
-    sp  = FactoryGirl.create(:student_participant, course: @courses.first)
-    tp  = FactoryGirl.create(:educator_participant, course: @courses.last)
+    sp  = FactoryGirl.create(:student_participant, course: @courses.first, user: user)
+    tp  = FactoryGirl.create(:educator_participant, course: @courses.last, user: user)
   end
 
   describe '#as_an_educator' do
@@ -23,6 +27,25 @@ RSpec.describe CoursesHelper, type: :helper do
       expect(res.count).to eq 1
       expect(res.first.course_participants.first.role.role_name).to eq 'educator'
     end
+
+    # Test for issue where the role checked could be from another user's course_participant
+    it "uses the current_user's role in the course for scoping" do
+      course3 = FactoryGirl.create(:course)
+      other_role = :educator_participant
+      FactoryGirl.create(other_role, course: course3) # with a nil user
+      this_cp = FactoryGirl.create(:student_participant, course:course3, user: user) # add this user in the middle of the list
+      FactoryGirl.create_list(other_role, 2, course: course3) #end with other users
+      @courses << course3
+      res = helper.as_an_educator(@courses)
+
+      expect(res.count).to eq 1
+
+      # verify that it changes when we change the cp in the middle
+      this_cp.update_attribute(:role, Role.educator)
+      res = helper.as_an_educator(@courses)
+      expect(res.count).to eq 2
+    end
+
   end
 
   describe '#as_a_student' do
@@ -30,6 +53,22 @@ RSpec.describe CoursesHelper, type: :helper do
       res = helper.as_a_student(@courses)
       expect(res.count).to eq 1
       expect(res.first.course_participants.first.role.role_name).to eq 'student'
+    end
+
+    # Test for issue where the role checked could be from another user's course_participant
+    it "uses the student and the students role in the course for scoping" do
+      course3 = FactoryGirl.create(:course)
+      FactoryGirl.create(:student_participant, course: course3) # with a nil user
+      FactoryGirl.create(:educator_participant, course:course3, user: user) # add this user in the middle of the list
+      FactoryGirl.create_list(:student_participant, 2, course: course3) #end with other users
+      @courses << course3
+      res = helper.as_a_student(@courses)
+
+      expect(res.count).to eq 1
+
+      user.course_participants.each { |cp| cp.role = Role.student; cp.save! }
+      res = helper.as_a_student(@courses)
+      expect(res.count).to eq 3
     end
   end
 end

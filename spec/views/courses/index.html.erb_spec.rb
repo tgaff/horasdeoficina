@@ -1,9 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe "courses/index", type: :view do
+
+
+  let!(:user) { FactoryGirl.create(:user) } # needed whenever we use Devise in the view
+
   before(:each) do
-    @student_participant = FactoryGirl.create(:student_participant)
-    @educator_participant = FactoryGirl.create(:educator_participant)
+    @student_participant = FactoryGirl.create(:student_participant, user: user)
+    @educator_participant = FactoryGirl.create(:educator_participant, user: user)
     assign(:courses, [
       Course.create!(
         :title => "Study habits",
@@ -16,7 +20,6 @@ RSpec.describe "courses/index", type: :view do
     ])
     sign_in user
   end
-  let!(:user) { FactoryGirl.create(:user) } # needed whenever we use Devise in the view
 
   it "renders a list of courses" do
     render
