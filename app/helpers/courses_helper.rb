@@ -14,7 +14,7 @@ module CoursesHelper
 
   def as_a(role_name, courses)
     courses.select do |c|
-      c.course_participants.where(user: current_user).last.role.role_name == role_name
+      c.course_participants.for_user(current_user).last.role.role_name == role_name
     end
   end
 end

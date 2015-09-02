@@ -25,4 +25,14 @@ RSpec.describe CourseParticipant, type: :model do
       expect(student.role.role_name).to eq 'educator'
     end
   end
+
+  describe 'scope for_user' do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:cps) { FactoryGirl.build_list(:student_participant, 5) }
+    before { cps[2].update_attributes(user: user) }
+    it 'returns only the records assigned to a particular user' do
+      expect(CourseParticipant.for_user(user).count).to eq 1
+      expect(CourseParticipant.for_user(403883900).count).to eq 0
+    end
+  end
 end

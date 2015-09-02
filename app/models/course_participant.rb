@@ -6,4 +6,7 @@ class CourseParticipant < ActiveRecord::Base
   validates :role, presence: true
   validates :course, presence: true
 
+  scope :for_user, lambda { |user|
+    where(user: user)
+  }
 end
