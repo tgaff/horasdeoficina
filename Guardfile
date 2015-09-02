@@ -72,7 +72,8 @@ guard :rspec, cmd: "zeus rspec" do
   end
 end
 
-guard 'zeus' do
+# see issue: https://github.com/guard/guard-zeus/issues/30
+guard 'zeus', run_all: false, rspec: false do
   require 'ostruct'
 
   rspec = OpenStruct.new
@@ -86,11 +87,11 @@ guard 'zeus' do
   # Ruby apps
   ruby = OpenStruct.new
   ruby.lib_files = /^(lib\/.+)\.rb$/
-=begin
-  watch(rspec.spec_files)
-  watch(rspec.spec_helper) { rspec.spec_dir }
-  watch(ruby.lib_files) { |m| rspec.spec.call(m[1]) }
-=end
+# see issue: https://github.com/guard/guard-zeus/issues/30
+#  watch(rspec.spec_files)
+#  watch(rspec.spec_helper) { rspec.spec_dir }
+#  watch(ruby.lib_files) { |m| rspec.spec.call(m[1]) }
+  
   # Rails example
   rails = OpenStruct.new
   rails.app_files = /^app\/(.+)\.rb$/
