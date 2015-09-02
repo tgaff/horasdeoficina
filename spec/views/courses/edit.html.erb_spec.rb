@@ -62,8 +62,9 @@ RSpec.describe "courses/edit", type: :view do
     it "doesn't display sections for which there are no entries" do
       allow(view).to receive(:user_courses_by_type).and_return({students: [], other: []})
       render
-      expect(rendered).to_not have_selector('div#participants', text: 'students')
-      expect(rendered).to_not have_selector('div#participants', text: 'educators')
+
+      expect(rendered).to_not have_selector('table.type-students')
+      expect(rendered).to_not have_selector('table.type-educators')
     end
   end
 end
