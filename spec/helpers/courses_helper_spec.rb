@@ -71,4 +71,26 @@ RSpec.describe CoursesHelper, type: :helper do
       expect(res.count).to eq 3
     end
   end
+
+  describe '#user_courses_by_role' do
+    let(:student) { FactoryGirl.create(:user) }
+    let(:teacher) { FactoryGirl.create(:user) }
+    let(:course) { FactoryGirl.create(:course_for_user, user: student) }
+    before { FactoryGirl.create(:educator_participant, course: course, user: teacher) }
+    subject(:result) { helper.user_courses_by_type(course) }
+    it 'returns a hash with keys :students, :teachers, :other' do
+      expect(result).to be_a Hash
+      expect(result.keys) =~ [ :students, :teachers, :other ]
+    end
+    it 'has an array of students in the students hash' do
+      expect(result[:students]).to be_an Array
+      expect(result[:students].first.email).to eq student.email
+    end
+
+    it 'has an array of educators under the educators keys' do
+      expect(result[:educators]).to be_an Array
+      expect(result[:educators].first.email).to eq teacher.email
+    end
+
+  end
 end

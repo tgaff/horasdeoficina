@@ -1,6 +1,23 @@
 <h1>Editing Course</h1>
 
+<h2>Course information</h2>
 <%= render 'form' %>
+<div id='scheduling'>
+  <h2>Scheduling</h2>
+    <h3>Optimal meeting times (calculated)</h3>
+    <%=image_tag('calendar.png', alt: 'optimal meeting times', class: 'mini-cal') %>
+    <h3>Edit my available times</h3>
+    <%= link_to  course_calendar_path(@course) do %>
+      <%=image_tag('calendar.png', alt: 'optimal meeting times', class: 'mini-cal') %>
+    <% end %>
+</div>
+
+<div id='participants'>
+  <h2>Course Participants</h2>
+  <%= render 'participants_list' %>
+</div>
 
 <%= link_to 'Show', @course %> |
 <%= link_to 'Back', courses_path %>
+
+

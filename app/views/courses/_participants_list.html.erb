@@ -1,0 +1,20 @@
+<% users = user_courses_by_type(@course).delete_if { |k,v| v.blank? } %>
+<% users.keys.each do |type| %>
+  <h3><%= type %></h3>
+  <table class='type-<%=type%>'>
+    <thead>
+      <tr>
+        <th>email</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% users[type.to_sym].each do |participant| %>
+        <tr>
+          <td><%= participant[:email] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
