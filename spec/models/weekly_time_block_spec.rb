@@ -62,20 +62,26 @@ RSpec.describe WeeklyTimeBlock, type: :model do
     let(:participant) { FactoryGirl.create(:course_participant) }
     before do
       FactoryGirl.create(:weekly_time_block, course_participant: participant,
-                        from: '08:00', to: '13:00')
+                         from: DateTime.new(2015,8,2,11), to: DateTime.new(2015,8,2,13))
       FactoryGirl.create(:weekly_time_block, course_participant: participant,
-                        from: '17:00', to: '22:00')
+                         from: DateTime.new(2015,8,2,17), to: DateTime.new(2015,8,2,22))
     end
 
     it 'cannot create a time-block that starts during another' do
-      new_tb = FactoryGirl.build(:weekly_time_block, course_participant: participant,
-                        from: '12:00', to: '15:00')
+      new_tb = FactoryGirl.build(:weekly_time_block,
+                                 course_participant: participant,
+                                 from: DateTime.new(2015,8,2,12,00),
+                                 to: DateTime.new(2015,8,2,14)
+                                )
       expect(new_tb).to be_invalid
     end
 
     it 'cannot create a time-block that ends during another' do
-      new_tb = FactoryGirl.build(:weekly_time_block, course_participant: participant,
-                        from: '14:00', to: '18:00')
+      new_tb = FactoryGirl.build(:weekly_time_block,
+                                 course_participant: participant,
+                                 from: DateTime.new(2015,8,2,14),
+                                 to: DateTime.new(2015,8,2,19)
+                                )
       expect(new_tb).to be_invalid
     end
 
@@ -92,8 +98,11 @@ RSpec.describe WeeklyTimeBlock, type: :model do
     end
 
     it 'cannot create a time-block that completely contains another' do
-      new_tb = FactoryGirl.build(:weekly_time_block, course_participant: participant,
-                        from: '07:00', to: '23:00')
+      new_tb = FactoryGirl.build(:weekly_time_block,
+                                 course_participant: participant,
+                                 from: DateTime.new(2015,8,2,1),
+                                 to: DateTime.new(2015,8,2,23)
+                                 )
       expect(new_tb).to be_invalid
     end
 
