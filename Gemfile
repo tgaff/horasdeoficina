@@ -34,6 +34,10 @@ gem 'devise'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'bootstrap-sass', '~>3.3.5'
+gem 'autoprefixer-rails'
+
+
 group :development do 
   gem 'better_errors'
   gem "binding_of_caller"
