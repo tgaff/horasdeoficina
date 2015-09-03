@@ -14,6 +14,8 @@ end
 
 user = User.create!(email: 'test@test.com', password: 'testtest')
 user2 = User.create!(email: 'test2@test.com', password: 'testtest')
+user.confirm!
+user2.confirm!
 
 c = Course.create(title: 'Rocket Science')
 c2 = Course.create(title: 'Underwater Basket Weaving')
