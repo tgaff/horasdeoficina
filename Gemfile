@@ -34,13 +34,17 @@ gem 'devise'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'bootstrap-sass', '~>3.3.5'
+gem 'autoprefixer-rails'
+
+
 group :development do 
   gem 'better_errors'
   gem "binding_of_caller"
   gem 'guard'
   gem 'guard-rspec', require: false
   gem 'guard-zeus'
-
+  gem 'guard-livereload', '~>2.4', require: false
 end
 
 group :development, :test do

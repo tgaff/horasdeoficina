@@ -29,8 +29,8 @@ RSpec.describe "courses/index", type: :view do
 
   it 'has a heading for each role' do
     render
-    expect(rendered).to have_css('h3', text: 'Learning')
-    expect(rendered).to have_css('h3', text: 'Teaching')
+    expect(rendered).to have_css('.panel-heading', text: 'Learning')
+    expect(rendered).to have_css('.panel-heading', text: 'Teaching')
   end
 
   it "doesn't show the heading or table if the role isn't present" do
@@ -42,10 +42,10 @@ RSpec.describe "courses/index", type: :view do
     render
     node = Capybara.string(rendered).find('div#teaching')
     expect(node).to have_css('td', text: 'Teaching habits')
-    expect(node).to have_css('h3', text: 'Teaching')
+    expect(node).to have_css('.panel-heading', text: 'Teaching')
     node2 = Capybara.string(rendered).find('div#learning')
-    expect(node2).to have_css('h3', text: 'Learning')
     expect(node2).to have_css('td', text: 'Study habits')
+    expect(node2).to have_css('.panel-heading', text: 'Learning')
   end
 
   it "says 'My courses'" do
@@ -56,7 +56,7 @@ RSpec.describe "courses/index", type: :view do
   it 'shows the user info at the top' do
     allow(view).to receive(:current_user) { user }
     render
-    assert_select 'h2', text: user.email
+    assert_select 'h4', text: "for #{user.email}"
   end
 
   it 'shows a link to the calendar page' do
