@@ -4,6 +4,7 @@ class CourseParticipantsController < ApplicationController
   def show
     @save = WeeklyTimeBlock.new
     @wtbs = get_current_wtbs
+    @course_info = { course_title: get_course_participant.course.title }
     render layout: 'calendar_layout'
   end
 

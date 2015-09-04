@@ -41,4 +41,14 @@ RSpec.feature "Class Participants",
     expect(@page.calendar).to have_event(on: 'wed', at: '10:00 am')
     expect(@page.calendar).to have_event(on: 'sat')
   end
+
+  scenario 'the course name is shown' do
+    expect(@page).to have_content cp.course.name
+  end
+
+  scenario 'the user can go edit the course' do
+    @page.course_edit_link.click
+    @page = CourseEditPage.new
+    expect(@page).to be_displayed
+  end
 end

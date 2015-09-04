@@ -1,4 +1,6 @@
-
+<h1 class="page-header">When I'm available for course:
+  <span class='label label-info'><%= @course_info[:course_title] %></span>
+</h1>
 <div id='calendar'></div>
 
 <%= form_tag("calendar/update", method: :post) do |f| %>
