@@ -47,7 +47,8 @@ RSpec.feature "Class Participants",
   end
 
   scenario 'the user can go edit the course' do
-    @page.course_edit_link.click
+    @page.course_name_dropdown.click
+    @page.course_name_dropdown.edit_link.click
     @page = CourseEditPage.new
     expect(@page).to be_displayed
   end

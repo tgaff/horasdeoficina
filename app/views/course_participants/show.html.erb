@@ -1,14 +1,24 @@
 <h1 class="page-header">When I'm available for course:
-  <span class='label label-info'><%= @course_info[:course_title] %></span>
+  <span class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+    <span class='label label-info dropdown'><%= @course_info[:course_title] %></span><span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <li><%= link_to 'edit course', edit_course_path(@course_info[:course_id]) %></li>
+  </ul>
+</span>
 </h1>
-<div id='calendar'></div>
-
+<div class="help well">On the below calendar, drag to block-off times that you cannot meet at.
+  The system will use these in calculating the ideal times when the greatest number of people can meet.
+  When you're done, click 'Save'.
+</div>
 <%= form_tag("calendar/update", method: :post) do |f| %>
   <%= hidden_field_tag :wtbs, @wtbs %>
   <input type="hidden" name="wtbs2" value="" />
-  <%= submit_tag 'Save calendar', :onclick => "return calendarSubmit();" %>
+  <%= submit_tag 'Save calendar', :onclick => "return calendarSubmit();", class: 'btn btn-primary' %>
 <% end %>
 
+<div id='calendar'></div>
 
 <script>
 WTBS = [
