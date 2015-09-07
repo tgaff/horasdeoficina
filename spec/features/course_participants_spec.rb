@@ -43,6 +43,7 @@ RSpec.feature "Class Participants",
   end
 
   scenario 'the course name is shown' do
+    pending 'phantomjs bug; text here is not shown' if Capybara.current_driver == :poltergeist
     expect(@page.course_name_dropdown.menu_toggle).to have_content cp.course.title
   end
 

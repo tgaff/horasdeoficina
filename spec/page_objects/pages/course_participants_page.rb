@@ -7,7 +7,7 @@ class CourseParticipantsPage < SitePrism::Page
 
   element :save_button, 'input[name="commit"]'
   section :course_name_dropdown, '.page-header .course-name' do
-    element :menu_toggle, 'a.dropdown-toggle'
+    element :menu_toggle, 'a.dropdown-toggle' # note in phantomjs the text here is not shown!
     element :edit_link, 'a', text: 'edit course'
   end
   element :test, '.page-header .course-name'
