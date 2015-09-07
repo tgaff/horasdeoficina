@@ -41,4 +41,16 @@ RSpec.feature "Class Participants",
     expect(@page.calendar).to have_event(on: 'wed', at: '10:00 am')
     expect(@page.calendar).to have_event(on: 'sat')
   end
+
+  scenario 'the course name is shown' do
+    pending 'phantomjs bug; text here is not shown' if Capybara.current_driver == :poltergeist
+    expect(@page.course_name_dropdown.menu_toggle).to have_content cp.course.title
+  end
+
+  scenario 'the user can go edit the course' do
+    @page.course_name_dropdown.menu_toggle.click
+    @page.course_name_dropdown.edit_link.click
+    @page = CoursesEditPage.new
+    expect(@page).to be_displayed
+  end
 end

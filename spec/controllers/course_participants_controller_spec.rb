@@ -23,6 +23,12 @@ RSpec.describe CourseParticipantsController, type: :controller do
       get :show, course_id: course.id
       expect(response).to render_with_layout('calendar_layout')
     end
+    it 'assigns @course_info to include the course_title' do
+      get :show, course_id: course.id
+      expect(assigns(:course_info)[:course_title]).to eq course.title
+    end
+
+
     context 'when not signed-in' do
       it 'redirects to sign-in page' do
         sign_out user

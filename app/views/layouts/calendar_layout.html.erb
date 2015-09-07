@@ -3,15 +3,19 @@
 <head>
 
   <%= javascript_include_tag "application" %>
-<!-- fixme: use asset pipeline -->
+  <!-- fixme: use asset pipeline -->
+
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.3.2/fullcalendar.min.css' />
   <script src='//momentjs.com/downloads/moment.min.js'></script>
   <script src='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.3.2/fullcalendar.min.js' ></script>
   </head>
 <body>
-
-<%= yield %>
-
+  <div class="container">
+    <div class="row">
+      <%= yield %>
+    </div>
+  </div>
 
 </body>
 </html>
