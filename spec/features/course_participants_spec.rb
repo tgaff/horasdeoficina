@@ -43,13 +43,13 @@ RSpec.feature "Class Participants",
   end
 
   scenario 'the course name is shown' do
-    expect(@page).to have_content cp.course.name
+    expect(@page.course_name_dropdown.menu_toggle).to have_content cp.course.title
   end
 
   scenario 'the user can go edit the course' do
-    @page.course_name_dropdown.click
+    @page.course_name_dropdown.menu_toggle.click
     @page.course_name_dropdown.edit_link.click
-    @page = CourseEditPage.new
+    @page = CoursesEditPage.new
     expect(@page).to be_displayed
   end
 end

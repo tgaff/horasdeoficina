@@ -6,9 +6,11 @@ class CourseParticipantsPage < SitePrism::Page
   section :calendar, WeekCalendarSection, '#calendar'
 
   element :save_button, 'input[name="commit"]'
-  section :course_name_dropdown, '.page-header a' do
+  section :course_name_dropdown, '.page-header .course-name' do
+    element :menu_toggle, 'a.dropdown-toggle'
     element :edit_link, 'a', text: 'edit course'
   end
+  element :test, '.page-header .course-name'
 
   def navigate_here
     visit '/'
