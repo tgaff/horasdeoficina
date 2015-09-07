@@ -10,7 +10,6 @@ class CourseParticipantsPage < SitePrism::Page
     element :menu_toggle, 'a.dropdown-toggle' # note in phantomjs the text here is not shown!
     element :edit_link, 'a', text: 'edit course'
   end
-  element :test, '.page-header .course-name'
 
   def navigate_here
     visit '/'
