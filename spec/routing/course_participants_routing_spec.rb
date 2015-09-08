@@ -11,8 +11,8 @@ RSpec.describe CourseParticipantsController, type: :routing do
       expect(post: '/courses/1/calendar/update').to route_to('course_participants#save_calendar', course_id: '1')
     end
 
-    xit "routes to #show_calendar" do
-      expect(get: '/courses/1/calendar').to route_to('course_participants#course_calendar', course_id: '1')
+    it "routes to #show" do
+      expect(get: '/courses/1/calendar').to route_to('course_calendars#show', course_id: '1')
     end
   end
 end
