@@ -6,25 +6,25 @@ RSpec.describe CourseParticipantsController, type: :controller do
   let!(:course) { FactoryGirl.create(:course_for_user, user: user) }
   let(:participant) { course.course_participants.last }
 
-  describe "GET #show" do
+  describe "GET #edit_calendar" do
     before do
       sign_in user
       2.times { FactoryGirl.create(:weekly_time_block, course_participant_id: participant.id) }
     end
     it "returns http success" do
-      get :show, course_id: course.id
+      get :edit_calendar, course_id: course.id
       expect(response).to have_http_status(:success)
     end
     it "assigns the weekly time blocks belonging to the user and course" do
-      get :show, course_id: course.id
+      get :edit_calendar, course_id: course.id
       expect(assigns(:wtbs)).to eq WeeklyTimeBlock.where(course_participant_id: participant.id)
     end
     it "uses the calendar layout" do
-      get :show, course_id: course.id
+      get :edit_calendar, course_id: course.id
       expect(response).to render_with_layout('calendar_layout')
     end
     it 'assigns @course_info to include the course_title' do
-      get :show, course_id: course.id
+      get :edit_calendar, course_id: course.id
       expect(assigns(:course_info)[:course_title]).to eq course.title
     end
 
@@ -32,14 +32,14 @@ RSpec.describe CourseParticipantsController, type: :controller do
     context 'when not signed-in' do
       it 'redirects to sign-in page' do
         sign_out user
-        get :show, course_id: course.id
+        get :edit_calendar, course_id: course.id
         expect(response).to redirect_to new_user_session_path
       end
     end
     context "when accessing a course the user doesn't possess" do
       it "404s" do
         new_course = FactoryGirl.create(:course_for_user)
-        expect { get :show, course_id: new_course.id }.to raise_error ActiveRecord::RecordNotFound
+        expect { get :edit_calendar, course_id: new_course.id }.to raise_error ActiveRecord::RecordNotFound
       end
     end
   end
@@ -64,7 +64,7 @@ RSpec.describe CourseParticipantsController, type: :controller do
 
     it 'redirects back to itself' do
       post :save_calendar, course_id: course.id, wtbs: calendar_data
-      expect(response).to redirect_to(course_calendar_path)
+      expect(response).to redirect_to(course_edit_calendar_path)
     end
 
     it 'breaks the wtbs into components' do

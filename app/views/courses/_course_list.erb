@@ -15,7 +15,7 @@
           <td><%= course.title %></td>
           <td><%= link_to 'Show', course %></td>
           <td><%= link_to 'Edit', edit_course_path(course) %></td>
-          <td><%= link_to 'Edit my calendar', course_calendar_path(course) %></td>
+          <td><%= link_to 'Edit my calendar', course_edit_calendar_path(course) %></td>
           <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>

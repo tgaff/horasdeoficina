@@ -1,7 +1,7 @@
-class CourseParticipantsPage < SitePrism::Page
+class CalendarEditPage < SitePrism::Page
 #  set_url 'course_participants/{:id}/'
-  set_url '/courses/{:course_id}/calendar'
-  set_url_matcher /courses.*\/calendar/
+  set_url '/courses/{:course_id}/edit_calendar'
+  set_url_matcher /courses.*\/edit_calendar/
 
   section :calendar, WeekCalendarSection, '#calendar'
 

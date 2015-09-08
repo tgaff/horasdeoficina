@@ -43,7 +43,7 @@ RSpec.feature "Editing courses",
 
   scenario 'can proceed to view my calendar' do
     @p.edit_calendar_link.click
-    @p = CourseParticipantsPage.new
+    @p = CalendarEditPage.new
     expect(@p).to be_displayed
   end
 end
