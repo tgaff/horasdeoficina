@@ -114,6 +114,9 @@ GEM
       em-websocket (~> 0.5)
       guard (~> 2.8)
       multi_json (~> 1.8)
+    guard-rails (0.7.2)
+      guard (~> 2.11)
+      guard-compat (~> 1.0)
     guard-rspec (4.6.4)
       guard (~> 2.1)
       guard-compat (~> 1.1)
@@ -297,6 +300,7 @@ DEPENDENCIES
   factory_girl_rails
   guard
   guard-livereload (~> 2.4)
+  guard-rails
   guard-rspec
   guard-zeus
   jbuilder (~> 2.0)
