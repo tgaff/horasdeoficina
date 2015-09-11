@@ -1,7 +1,8 @@
 class CourseCalendarsController < ApplicationController
+  layout 'calendar_layout'
+
   def show
-    course = Course.find(course_id)
-    @course_participants = course.course_participants
+    @course_participants = Course.find(course_id).course_participants
   end
 
 private
