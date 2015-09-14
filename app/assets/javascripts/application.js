@@ -16,3 +16,14 @@
 //= require bootstrap-sprockets
 
 //= require_tree .
+
+
+
+
+  function parseFromWTBTime(dateTime) {
+    var dt = moment(dateTime);
+    console.log(dt.format());
+    return dt.format();
+  };
+
+
