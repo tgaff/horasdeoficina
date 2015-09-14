@@ -4,7 +4,7 @@ class CourseCalendarsController < ApplicationController
   def show
     @course_participants = course.course_participants
     @course_info = { title: course.title }
-    @wtbs = WeeklyTimeBlock.where(course: course)
+    @wtbs = course.weekly_time_blocks
   end
 
 private
