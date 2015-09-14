@@ -1,2 +1,16 @@
-<h1>CourseCalendars#show</h1>
-<p>Find me in app/views/course_calendars/show.html.erb</p>
+<h1 class="page-header">Full course calendar:
+      <span class='label label-info dropdown'><%= @course_info[:title] %></span><span class="caret"></span>
+</h1>
+<div class="help well">
+  lorem ipsum
+</div>
+<%= form_tag("calendar/update", method: :post) do |f| %>
+  <%= hidden_field_tag :wtbs, @wtbs %>
+  <input type="hidden" name="wtbs2" value="" />
+  <%= submit_tag 'Save calendar', :onclick => "return calendarSubmit();", class: 'btn btn-primary' %>
+<% end %>
+
+<div id='calendar'></div>
+
+<script>
+
