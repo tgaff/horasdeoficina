@@ -39,7 +39,7 @@ RSpec.describe "courses/edit", type: :view do
     end
     it 'has a link to calendar page' do
       render
-      expect(capybara.find('div#scheduling a')['href']).to match course_calendar_path(@course)
+      expect(capybara.find('div#scheduling a')['href']).to match course_edit_calendar_path(@course)
     end
   end
 

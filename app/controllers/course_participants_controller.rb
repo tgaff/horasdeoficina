@@ -1,7 +1,7 @@
 class CourseParticipantsController < ApplicationController
   before_action :authenticate_user!
 
-  def show
+  def edit_calendar
     @save = WeeklyTimeBlock.new
     @wtbs = get_current_wtbs
     cp = get_course_participant
@@ -20,7 +20,7 @@ class CourseParticipantsController < ApplicationController
       @wtb.course_participant = get_course_participant
       @wtb.save!
     end
-    redirect_to course_calendar_path
+    redirect_to course_edit_calendar_path
   end
 
   private

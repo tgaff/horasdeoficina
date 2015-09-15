@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.feature "Class Participants",
+RSpec.feature "editing calendar",
   %q{
     In order to have a listing of times
     As a course participant
-    I want to create and manage calendar items
+    I want to edit my calendar dates
   },
   :js do
 
@@ -18,7 +18,7 @@ RSpec.feature "Class Participants",
 
   before do
     UsersSignInPage.sign_in_user user.email
-    @page = CourseParticipantsPage.navigate_here
+    @page = CalendarEditPage.navigate_here
   end
 
   scenario 'the calendar is displayed in week view' do
