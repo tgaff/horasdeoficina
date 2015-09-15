@@ -1,5 +1,5 @@
 <h1 class="page-header">Full course calendar:
-      <span class='label label-info dropdown'><%= @course_info[:title] %></span><span class="caret"></span>
+  <span class='label label-info dropdown'><%= @course_info[:title] %></span><span class="caret"></span>
 </h1>
 <div class="help well">
   help box
@@ -54,7 +54,7 @@
       <!-- end panel-body -->
 
     </div><!-- end panel panel-info -->
-  </div><! -- end col -->
+  </div><!-- end col -->
 
   <!-- a better way to pass data to js -->
   <%= content_tag 'div', nil, class: 'col-md-6', id: 'student-list', data: { students: @course_participants } do %>

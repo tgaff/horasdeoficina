@@ -14,6 +14,7 @@ RSpec.describe "course_calendars/show.html.erb", type: :view do
     wtbs
   end
   let(:page) { CourseCalendarPage.new }
+  let(:load_page) { render; page.load rendered }
   before do
     assign :course_info, course_info
     assign :wtbs, wtbs
@@ -21,28 +22,25 @@ RSpec.describe "course_calendars/show.html.erb", type: :view do
   end
 
   it 'has a calendar' do
-    render
-    page.load(rendered)
+    load_page
     expect(page).to have_calendar
     # calendar contents rendered by JS, can't validate here
   end
 
   xit 'has the right number of educator checkboxes' do
-    render
+    load_page
     page.load(rendered)
     pending 'not implemented yet'
   end
 
   it 'has a list of excluded students' do
-    render
-    page.load rendered
+    load_page
     expect(page).to have_excluded_students_table
     expect( page.excluded_students_table.all('tr').count ).to eq 4
   end
 
   it 'has a list of included students' do
-    render
-    page.load rendered
+    load_page
     expect(page).to  have_included_students_table
   end
 end
