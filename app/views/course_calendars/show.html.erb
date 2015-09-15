@@ -7,14 +7,32 @@
 
 <div id='calendar' class='panel'></div>
 
-<div class='row equal'>
+<div class='row'>
   <div class='col-md-6' id='controls'>
-    <div class='panel panel-info'>
+    <div class='panel panel-primary covered-students'>
+      <div class='panel-heading'> STUDENTS COVERED BY CURRENT SELECTION </div>
+
+      <div class='panel-body'>
+        <div class="progress progress-thick" >
+          <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+            <span class="sr-only">20% Complete</span>
+            <span class="sr-only">3 of 49</span>
+          </div>
+        </div>
+
+      </div>
+      <!-- end panel-body -->
+    </div>
+    <!-- end panel -->
+
+
+
+    <div class='panel panel-info display-options'>
       <div class='panel-heading'>
-        <h4>filtering options</h4>
+        DISPLAY OPTIONS
       </div>
       <div class='panel-body'>
-        <div class='checkbox'>
+        <div class='checkbox show-all'>
           <label>
             <input type='checkbox'>Show all educator availability
           </label>
@@ -25,39 +43,44 @@
           </label>
         </div>
       </div>
+      <div class='panel-body'>
+        <div class='checkbox hide-included'>
+          <label>
+            <input type='checkbox'>Hide times from board for already included students
+          </label>
+        </div>
 
-    </div>
-  </div>
+      </div>
+      <!-- end panel-body -->
+
+    </div><!-- end panel panel-info -->
+  </div><! -- end col -->
+
   <!-- a better way to pass data to js -->
   <%= content_tag 'div', nil, class: 'col-md-6', id: 'student-list', data: { students: @course_participants } do %>
-    <row class='equal'>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4>excluded from current selection <span class='badge'><%= @course_participants.count %> </span></h4>
-        </div>
-        <div class="panel-body">
-          <table class='table'>
-            <% @course_participants.each do |cp| %>
-              <tr><td><%=cp.user.email%></td></tr>
-            <% end %>
-          </table>
-        </div>
+    <div class="panel panel-default">
+      <div class="panel-heading"> EXCLUDED FROM CURRENT SELECTION <span class='badge'><%= @course_participants.count %> </span>
       </div>
-    </row>
-    <row class='row equal'>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4>included in current selection <span class='badge'> <%= @course_participants.count %> </span></h4>
-        </div>
-        <div class="panel-body">
-          <table class='table'>
-            <% @course_participants.each do |cp| %>
-              <tr><td><%=cp.user.email%></td></tr>
-            <% end %>
-          </table>
-        </div>
+      <div class="panel-body">
+        <table class='table excluded-students'>
+          <% @course_participants.each do |cp| %>
+            <tr><td><%=cp.user.email%></td></tr>
+          <% end %>
+        </table>
       </div>
-    </row>
+
+      <div class="panel-heading">
+        INCLUDED IN CURRENT SELECTION
+        <span class='badge'> <%= @course_participants.count %> </span>
+      </div>
+      <div class="panel-body">
+        <table class='table included-students'>
+          <% @course_participants.each do |cp| %>
+            <tr><td><%=cp.user.email%></td></tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
   <% end %>
 </div>
 <script>
