@@ -4,7 +4,7 @@
 $(document).ready(function() {
 
   // page is now ready, initialize the calendar...
-  if ($('#calendar').length > 0) {
+  if ($('#calendar.calendar-edit').length > 0) {
     $('#calendar').fullCalendar({
       defaultDate: moment("2015-08-03T12:24:05"),
       defaultView: 'agendaWeek',
