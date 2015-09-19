@@ -32,14 +32,18 @@ $(document).ready(function() {
   }
 });
 
+// clear the calendar and re-render with current WTBS
 function resetCalendar() {
   getCalendar('removeEvents'); // all events
-  getCalendar('renderEvents', WTBS);
+  getCalendar('addEventSource', WTBS);
 }
 
+// gets the calendar and runs whatever is passed to it
 function getCalendar() {
+  console.log(arguments);
   if ($('#calendar.calendar-course').length >0) {
-    return $('#calendar').fullCalendar(arguments);
+    return $('#calendar').fullCalendar.apply(
+      $('#calendar'), arguments);
   }
 }
 
