@@ -57,7 +57,13 @@
   </div><!-- end col -->
 
   <!-- a better way to pass data to js -->
-  <%= content_tag 'div', nil, class: 'col-md-6', id: 'student-list', data: { students: @course_participants } do %>
+  <%= content_tag 'div', nil, class: 'col-md-6',
+    id: 'student-list',
+    data: { students: @course_participants.as_json(
+      only: [:id],
+      include: [ { user: { only: [:id, :email]} } ]
+    )
+  } do %>
     <div class="panel panel-default">
       <div class="panel-heading"> EXCLUDED FROM CURRENT SELECTION <span class='badge'><%= @course_participants.count %> </span>
       </div>
@@ -83,15 +89,26 @@
     </div>
   <% end %>
 </div>
+<%= content_tag 'div', nil,
+  id: 'wtb-data',
+  data: { wtbs: @wtbs.as_json()}
+%>
 <script>
+// the below (and above div) can't quite get us to the formatting we want without a much
+//   better serialization strategy.  For now I'll stick with building this
+//   in ruby in this tag (see 'ugly')
+//WTBS = $('div#wtb-data').data('students');
 
+// ugly
 WTBS = [
-  <% @wtbs.each do |wtb| %>
+<% @wtbs.each do |wtb| %>
     {
       title: 'busy',
       start: parseFromWTBTime('<%= wtb.from.strftime("%Y-%m-%d %H:%M") %>'),
       end: parseFromWTBTime('<%= wtb.to.strftime("%Y-%m-%d %H:%M") %>')
     },
-  <%end%>
-]
+  <% end %>
+  ];
+
+
 </script>

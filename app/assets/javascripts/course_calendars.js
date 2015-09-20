@@ -36,7 +36,7 @@ $(document).ready(function() {
 function resetCalendar() {
   getCalendar('removeEvents'); // all events
   getCalendar('addEventSource', WTBS);
-}
+};
 
 // gets the calendar and runs whatever is passed to it
 function getCalendar() {
@@ -45,6 +45,6 @@ function getCalendar() {
     return $('#calendar').fullCalendar.apply(
       $('#calendar'), arguments);
   }
-}
+};
 
 
