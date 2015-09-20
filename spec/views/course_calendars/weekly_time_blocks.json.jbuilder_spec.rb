@@ -7,7 +7,7 @@ describe 'course_calendars/weekly_time_blocks' do
     wtbs.each_with_index do |wtb, i|
       allow(wtb).to receive_message_chain(:course_participant, :id).and_return i
     end
-  assign :wtbs, wtbs
+    assign :wtbs, wtbs
   end
 
   it 'renders an array' do
