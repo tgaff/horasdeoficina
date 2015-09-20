@@ -29,7 +29,6 @@ describe 'course_calendars/weekly_time_blocks' do
 
   it 'has the course-participant id' do
     render
-    puts parsed[2]
     expect( parsed[2]['course_participant_id'] ).to eq 2
   end
 end

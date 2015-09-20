@@ -91,13 +91,13 @@
   id: 'wtb-data',
   data: { wtbs: render(template: 'course_calendars/weekly_time_blocks.json', locals: { wtbs: @wtbs }) }
 %>
+
 <script>
-
-
-WTBS = $('div#wtb-data').data('wtbs')
-for (var i=0; i< WTBS.length; i++) {
-  WTBS[i].start = parseFromWTBTime( WTBS[i].start );
-  WTBS[i].end = parseFromWTBTime( WTBS[i].end );
-};
+ // set WTBS; parsing is required to convert the date format
+   WTBS = $('div#wtb-data').data('wtbs');
+    for (var i=0; i< WTBS.length; i++) {
+      WTBS[i].start = parseFromWTBTime( WTBS[i].start );
+      WTBS[i].end = parseFromWTBTime( WTBS[i].end );
+    };
 
 </script>

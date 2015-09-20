@@ -46,7 +46,7 @@ describe 'course_calendars/_course_participants.json.jbuilder' do
 
       expect(rendered_role).to eq factory_role
       expect(parsed.last['role']).to eq 'novice'
-
     end
   end
+
 end
