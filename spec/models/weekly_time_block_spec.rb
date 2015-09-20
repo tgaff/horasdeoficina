@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: weekly_time_blocks
+#
+#  id                    :integer          not null, primary key
+#  from                  :datetime
+#  to                    :datetime
+#  can                   :boolean
+#  preferred             :integer
+#  course_participant_id :integer
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#
+
 require 'rails_helper'
 
 RSpec.describe WeeklyTimeBlock, type: :model do

@@ -46,6 +46,7 @@ group :development do
   gem 'guard-zeus'
   gem 'guard-livereload', '~>2.4', require: false
   gem 'guard-rails', require: false
+  gem 'annotate'
 end
 
 group :development, :test do

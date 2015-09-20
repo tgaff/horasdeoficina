@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: course_participants
+#
+#  id         :integer          not null, primary key
+#  role_id    :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  course_id  :integer
+#  user_id    :integer
+#
+
 require 'rails_helper'
 
 RSpec.describe CourseParticipant, type: :model do
