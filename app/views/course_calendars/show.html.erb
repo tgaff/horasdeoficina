@@ -91,24 +91,15 @@
 </div>
 <%= content_tag 'div', nil,
   id: 'wtb-data',
-  data: { wtbs: @wtbs.as_json()}
+  data: { wtbs: render(template: 'course_calendars/weekly_time_blocks.json', locals: { wtbs: @wtbs }) }
 %>
 <script>
-// the below (and above div) can't quite get us to the formatting we want without a much
-//   better serialization strategy.  For now I'll stick with building this
-//   in ruby in this tag (see 'ugly')
-//WTBS = $('div#wtb-data').data('students');
 
-// ugly
-WTBS = [
-<% @wtbs.each do |wtb| %>
-    {
-      title: 'busy',
-      start: parseFromWTBTime('<%= wtb.from.strftime("%Y-%m-%d %H:%M") %>'),
-      end: parseFromWTBTime('<%= wtb.to.strftime("%Y-%m-%d %H:%M") %>')
-    },
-  <% end %>
-  ];
 
+WTBS = $('div#wtb-data').data('wtbs')
+for (var i=0; i< WTBS.length; i++) {
+  WTBS[i].start = parseFromWTBTime( WTBS[i].start );
+  WTBS[i].end = parseFromWTBTime( WTBS[i].end );
+};
 
 </script>
