@@ -5,7 +5,7 @@
   help box
 </div>
 
-<div id='calendar' class='panel'></div>
+<div id='calendar' class='panel calendar-course'></div>
 
 <div class='row'>
   <div class='col-md-6' id='controls'>
@@ -57,7 +57,11 @@
   </div><!-- end col -->
 
   <!-- a better way to pass data to js -->
-  <%= content_tag 'div', nil, class: 'col-md-6', id: 'student-list', data: { students: @course_participants } do %>
+  <%= content_tag 'div', nil, class: 'col-md-6',
+    id: 'student-list', data: { students: render( partial: 'course_calendars/course_participants.json',
+                              locals: { course_participants: @course_participants }
+                            )
+    } do %>
     <div class="panel panel-default">
       <div class="panel-heading"> EXCLUDED FROM CURRENT SELECTION <span class='badge'><%= @course_participants.count %> </span>
       </div>
@@ -83,15 +87,17 @@
     </div>
   <% end %>
 </div>
-<script>
+<%= content_tag 'div', nil,
+  id: 'wtb-data',
+  data: { wtbs: render(template: 'course_calendars/weekly_time_blocks.json', locals: { wtbs: @wtbs }) }
+%>
 
-WTBS = [
-  <% @wtbs.each do |wtb| %>
-    {
-      title: 'busy',
-      start: parseFromWTBTime('<%= wtb.from.strftime("%Y-%m-%d %H:%M") %>'),
-      end: parseFromWTBTime('<%= wtb.to.strftime("%Y-%m-%d %H:%M") %>')
-    },
-  <%end%>
-]
+<script>
+ // set WTBS; parsing is required to convert the date format
+   WTBS = $('div#wtb-data').data('wtbs');
+    for (var i=0; i< WTBS.length; i++) {
+      WTBS[i].start = parseFromWTBTime( WTBS[i].start );
+      WTBS[i].end = parseFromWTBTime( WTBS[i].end );
+    };
+
 </script>

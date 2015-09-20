@@ -7,9 +7,12 @@ RSpec.describe "course_calendars/show.html.erb", type: :view do
   let(:course_info) { { title: 'showmanship' } }
   let(:wtbs) do
     wtbs = FactoryGirl.build_stubbed_list(:weekly_time_block, 3)
+    # 3 wtbs each one day apart
     wtbs.each_with_index do |wtb, i|
       wtb.from = wtb.from + i*24.hours
       wtb.to = wtb.to + i*24.hours
+      # and stub out the course_participant for the partial
+      allow(wtb).to receive_message_chain(:course_participant, :id) { course_participants[i].id }
     end
     wtbs
   end

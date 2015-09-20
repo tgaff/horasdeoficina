@@ -3,8 +3,9 @@
 
 $(document).ready(function() {
 
+  // this is the calendar edit page
   // page is now ready, initialize the calendar...
-  if ($('#calendar').length > 0) {
+  if ($('#calendar.calendar-edit').length > 0) {
     $('#calendar').fullCalendar({
       defaultDate: moment("2015-08-03T12:24:05"),
       defaultView: 'agendaWeek',
@@ -52,10 +53,9 @@ function calendarSubmit() {
   var clientEvents = $('#calendar').fullCalendar( 'clientEvents' );
   $('input[name=wtbs]').val(encodeURIComponent(JSONifyClientEvents(clientEvents)));
   console.log(clientEvents);
-  //$('#calendar-submit').submit();
-
-
 }
+
+
 function JSONifyClientEvents(clientEvents) {
   var strippedEvents = clientEvents.map(function(item) {
      return {
