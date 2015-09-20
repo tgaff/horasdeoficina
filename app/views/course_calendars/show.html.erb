@@ -58,12 +58,10 @@
 
   <!-- a better way to pass data to js -->
   <%= content_tag 'div', nil, class: 'col-md-6',
-    id: 'student-list',
-    data: { students: @course_participants.as_json(
-      only: [:id],
-      include: [ { user: { only: [:id, :email]} } ]
-    )
-  } do %>
+    id: 'student-list', data: { students: render( partial: 'course_calendars/course_participants.json',
+                              locals: { course_participants: @course_participants }
+                            )
+    } do %>
     <div class="panel panel-default">
       <div class="panel-heading"> EXCLUDED FROM CURRENT SELECTION <span class='badge'><%= @course_participants.count %> </span>
       </div>
